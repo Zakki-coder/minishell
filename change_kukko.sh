@@ -1,0 +1,6 @@
+echo $KUKKO
+KUKKO=EIKIEKUENAA
+echo $KUKKO
+
+export KUKKO=EIKIEKUENAA
+echo $KUKKO

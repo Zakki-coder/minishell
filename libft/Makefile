@@ -12,33 +12,34 @@
 
 NAME = libft.a
 
-INCLUDES =	-I ./	\
-			-I ./GNL	\
-			-I ./libft/ft_printf/includes/ft_printf.h
+INC_DEP = libft.h ft_printf/includes/ft_printf.h GNL/get_next_line.h
 
-INC_DEP = libft.h ./libft/ft_printf/includes/ft_printf.h ./GNL/get_next_line.h
-
-CFLAG = -Wall -Wextra -Werror 
 GNL = GNL
 PRINTF = ft_printf
+CFLAG = -Wall -Wextra -Werror 
 CC = gcc
 
 SRC :=	$(wildcard *.c)	
-SRC +=	$(wildcard $(GNL)/*.c)	
-SRC +=	$(wildcard $(PRINTF)/*.c)	
+SRC += $(wildcard $(GNL)/*.c)	
+SRC += $(wildcard $(PRINTF)/*.c)	
 
-OBJ :=	$(SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) #$(INC_DEP)
-	gcc -c $(CFLAG) $(SRC) $(INCLUDES) 
-	ar rc $(NAME) $(OBJ) 
+$(NAME): $(SRC:%.c=%.o) $(INC_DEP)
+	@ar rc $(NAME) $(OBJ) 
 
-clean:
-	rm -f $(OBJ)
+%.o: %.c
+	$(CC) $(CFLAG) -c $(<) -o $(@)
+
+clean: 
+	@rm -f $(OBJ)
+#	rm -f $(wildcard *.o)
+#	rm -f $(wildcard $(GNL)/*.o)
+#	rm -f $(wildcard $(PRINTF)/*.o)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all

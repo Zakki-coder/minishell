@@ -1,0 +1,110 @@
+#man is used for external programs and help for internal? 
+Do we need to handle backtick ``. It is legacy but works in mac.
+#Study about quotation
+$ echo 'The current directory is $(pwd)' #With single quotation (strong quoting)marks substiotution doesn't happen, strong quotinq prevents special meaning from chars.
+	The current directory is $(pwd)
+$ echo "The current directory is $(pwd)" #With doubles quotes(Weak quotes) it does substitute.
+	The current directory is /home/barnett
+$ echo "The current directory is \$(pwd)" #Backslash prevents special meaning from one character.
+	The current directory is $(pwd)
+
+#Quotation marks escape each other.
+	echo "Don't forget!"
+	echo 'Warning! Missing keyword: "end"'
+
+#abcd
+	echo abcd
+	echo 'abcd'
+	echo ab'c'd
+	echo a"b"cd
+	echo 'a'"b"'c'"d"
+
+	echo 'Strong quotes use '"'"' and weak quotes use "'
+#After 'Strong quotes use', strong quotes are switched off. Then weak quotes are turned on. And then strong quotes are switched back on.
+	'string1'"string2"'string3'
+
+	echo 'My home directory is '$HOME', and my account is '$USER
+	echo 'My home directory is '"$HOME"', and my account is '"$USER"
+
+
+#Study about variables:
+	variable=value #Assign a variable. Variable names cant't start with number.
+#Ws needs quotinq
+	variable='Interesting sentence here' or "Interesting sentence here"
+#Multiple assignments can be placed on one line:
+    A=1 B=2 C=3 D=4
+#NO SPACE AFTER =
+#Setting empty var:
+	var= or var='' or var=""
+
+#Test these: Results are of my linux. Some shells evaluate twice, some just once.
+	a=one; echo $a #Works as expected
+	a=two echo $a #Doesn't change the variable, just echoes whatever is in variable.
+	a=three echo $a >$a #Doesn't change the variable, redirects whatever is in variable to similary named file
+
+#Something
+	echo *
+	/ also quotes \n backslash is the strongest quotation, which works when everything else fails
+	echo	This could be \
+			a very \
+			long line\!
+			This could be a very long line!
+
+#Study about environment variables
+	Child processes inherit environment variables, but cannot change them. So they just get local copy about the var? Like c functions?
+	Export is used to mark variables which are sent to child?
+	sh -c 'echo $SOMEVAR', sh -c is used to create child process so u can play with it.
+
+	PATH = paths to external commands, if u must add current path append it or else someone will make trojan. Here, it is appended like it should "/usr/bin:/usr/ucb:"
+	HOME = my home dir for cd without args	
+	CDPATH = cd will first search from the directory where the command was given. If not found, it will search from CDPATH variables	
+	IFS = Internal field seperator, add / and seee if something happens
+	PS1 = Normal prompt ($)
+	PS2 = Secondary prompt (>)
+	MAIL - Incoming mail
+		"TERM" defines the terminal type
+		"USER" or "LOGNAME" defines your user ID. 
+		"SHELL" defines your default shell
+		"TZ" specifies your time zone 
+	#Moving valuables doesnt work at all on my linux, test mac
+	    mv $X $X.old #WORKS
+		The second example, however, does not work:
+	    mv $X $X_new # WRONG!	
+			$x"run"
+			$x'run'
+			$x\run
+			$x''run
+			$x""run
+			"$x"run
+		#Play with these:
+			Form				Meaning
+		${variable?word}	Complain if undefined
+		${variable-word}	Use new value if undefined
+		${variable+word}	Opposite of the above
+		${variable=word}	Use new value if undefined, and redefine
+
+	#unset variables with unset, can handle multiple
+	#Assing undefined var to var, test.
+		Form					Meaning
+	${variable:?word}	Complain if undefined or null
+	${variable:-word}	Use new value if undefined or null
+	${variable:+word}	Opposite of the above
+	${variable:=word}	Use new value if undefined or null, and redefine.
+
+	Notice the difference between "${b-2}" and "${b:-2}" in the following example:
+
+	    $ # a is undefined
+	    $ b=""
+	    $ c="Z"
+	    $ echo a=${a-1}, b=${b-2}, c=${c-3}
+	    a=1, b=, c=Z
+	    $ echo a=${a:-1}, b=${b:-2}, c=${c:-3}
+	    a=1, b=2, c=Z
+	
+	#Look into these:
+		the special word in one of these formats is only evaluated if necessary. 
+		Therefore the cd and pwd commands in the following: is only executed if the word is executed:
+	    echo ${x-$(cd $HOME;pwd)}
+		Also - the evaluation occurs in the current shell, and not a sub-shell.
+		The command above will change the current directory, but the one below will not, as it executes the commands in a new shell, which then exits.
+	    echo $(cd $HOME;pwd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   octal.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 21:05:20 by jniemine          #+#    #+#             */
-/*   Updated: 2022/09/28 12:02:33 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:32:55 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static void	left_adjusted_octal(t_fs *f_str, unsigned long long ull, int len)
 void	octal(t_fs *f_str)
 {
 	int					len;
-	int					width;
-	int					precision;
 	unsigned long long	ull;
 
 	ull = get_octa_argument(f_str);
@@ -79,8 +77,6 @@ void	octal(t_fs *f_str)
 			f_str->ret += print_zeroes(1);
 		return ;
 	}
-	width = f_str->width;
-	precision = f_str->precision;
 	len = octal_len(f_str, ull);
 	handle_width(f_str, len);
 	if (!(f_str->flags & MINUS))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hexa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 19:19:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/09/28 12:01:50 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:32:07 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ unsigned int	hexa_len(t_fs *f_str, unsigned long long ull)
 {
 	char				s[100];
 	int					i;
-	unsigned long long	zero;
 
-	zero = 0;
 	i = 0;
 	ft_bzero(s, 100);
 	if (ull == 0)
@@ -97,8 +95,6 @@ void	left_adjusted_x(t_fs *f_str, int len, long long nb)
 void	hexa(t_fs *f_str, long long nb)
 {
 	int	len;
-	int	width;
-	int	precision;
 
 	if (*f_str->str != 'p')
 	{
@@ -109,11 +105,9 @@ void	hexa(t_fs *f_str, long long nb)
 		return ;
 	if (nb == 0 && f_str->flags & HASH)
 		f_str->flags ^= HASH;
-	width = f_str->width;
 	len = hexa_len(f_str, convert_from_negativity(f_str, nb));
 	if (!f_str->is_precision)
 		f_str->precision = 1;
-	precision = f_str->precision;
 	handle_width(f_str, len);
 	if (!(f_str->flags & MINUS))
 		right_adjusted_x(f_str, nb, len);
