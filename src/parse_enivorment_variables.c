@@ -6,11 +6,11 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:37:37 by jniemine          #+#    #+#             */
-/*   Updated: 2022/09/30 21:24:02 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/01 10:15:03 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "../inc/minishell.h"
 
 extern char **environ;
 
