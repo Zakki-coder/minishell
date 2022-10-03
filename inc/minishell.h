@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/01 14:31:31 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/03 15:56:24 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 /* parse */
 char **get_input(void);
 char **copy_enivornment_var(void);
+/*Error*/
+void	error_exit(char *msg);
 /* Extra */
 char *ft_search_str(char **haystack, char *needle);
 /* main stuff */
