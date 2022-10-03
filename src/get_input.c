@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/03 13:09:12 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/03 13:12:46 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*ft_strndup(char *str, size_t n)
 }
 
 /*TODO: function to calculate amount of args, from quote to quote is one argument, if no matching quote, do something */
+/* OR make reallocarray */
 static char **before_quote(char *line)
 {
 	char *quote;
