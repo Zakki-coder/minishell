@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/03 17:07:22 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:01:51 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,6 @@ void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size)
 	return (new);
 }
 
-static char *before_quote(char *line)
-{
-	char	*quote;
-	char	*res;
-
-	res = NULL;
-	quote = ft_strchr(line, '\'');
-	if (quote > line[0])
-		res = ft_strndup(line, quote - line[0]);
-	return (res);
-}
-
-static char **check_for_quotes(char **execs, char *line, int *n_pointers)
-{
-	char *quote;
-
-	quote = ft_strchr(line, '\'');
-	if (quote == line[0])
-}
-
 int	calculate_quotes(char *line, char q_type)
 {
 	int n;
@@ -80,16 +60,21 @@ int	calculate_quotes(char *line, char q_type)
 }
 
 /* We should validate the ones starting earlier */
+//NOT WORKING YET
 void validate_quotes(char *line)
 {
-	char	*quote;	
+	char	*s_quote;	
+	char	*w_quote;	
 	int		quote_n;
 
-	quote = ft_strchr(line, '\'');
-	if (!quote)
-		quote = ft_strchr(line, '"');
-	if (quote)
-		quote_n = calculate_quotes(quote, *quote);
+	s_quote = ft_strchr(line, '\'');
+	w_quote = ft_strchr(line, '"');
+	if (!s_quote && !w_quote)
+		return ;
+	if (s_quote < w_quote)
+		quote_n = calculate_quotes(s_quote, *s_quote);
+	else
+		quote_n = calculate_quotes(w_quote, *w_quote);
 	if (quote_n > 0 && quote_n % 2 != 0)
 	{
 		free (line);
@@ -97,38 +82,86 @@ void validate_quotes(char *line)
 	}
 }
 
-char *trim_touching_quotes(char *line)
+int is_ws(char c)
 {
-	char	*ret;
-	char	q[2];
-	
-	q = "'\"";
-	while (line)
+	return (c == ' ' || c == '\t' || c == '\v'
+			|| c == '\f' || c == '\r');
+}
+
+int is_quote(char c)
+{
+	return (c == '\'' || c == '"');
+}
+
+char *first_quote(char *line)
+{
+	char *s_quote;
+	char *w_quote;
+
+	s_quote = ft_strchr(line, '\'');
+	w_quote = ft_strchr(line, '"');
+	if (s_quote && w_quote)
 	{
-		
+		if (s_quote < w_quote)
+			return (s_quote);
+		else
+			return (w_quote);
+	}
+	else if (s_quote)
+		return (s_quote);
+	return (w_quote);
+}
+
+char *find_argument(char **line)
+{
+	int		i;
+	char	quote;
+
+	i = 0;
+	quote = 0;
+	while ((*line)[i] && !is_ws((*line)[i]))
+	{
+		while(!is_quote((*line)[i]) && !is_ws((*line)[i]))
+			++i;
+		if (i > 0 && is_quote((*line)[i]) && !is_ws((*line)[i - 1]))
+		{
+			quote = (*line)[i];
+			while ((*line)[i] != quote && (*line)[i] != '\0')
+				++i;
+		}
+		++i;
+	}
+	(*line) += i;
+	return (ft_strndup((*line), i));
+}
+/* Hello"    "mom. If there is whitespace or start on the left side of opening quote, then just evaluate whats inside on the quotes. 
+If on the other hand opening quote is touching some other char than ws, then what comes after until next quote is glued to argument */
+char **chop_line(char *line, char **args, size_t size)
+{
+	int		i_args;
+
+	//Copy until whitespace or quote.
+	//If quote is touching to some other char than ws, then it is joined
+	//First we split the arguments without doing anything to quotes, then we expand the quotes
+	i_args = 0;
+	while (*line)	
+	{
+		while (is_ws(*line))
+			++line;
+		args[i_args++] = find_argument(&line);
+		//Check for realloc i_args vs size
 	}
 }
 
-/* Hello"    "mom. If there is whitespace or start on the left side of opening quote, then just evaluate whats inside on the quotes. 
-If on the other hand opening quote is touching some other char than ws, then what comes after until next quote is glued to argument */
-char **chop_line(char *line)
-{
-	char	**res;
-	int		pointer_n;
-
-	
-}
 int	parse_input(char **execs, char *line)
 {
 	size_t	n_pointers;
-
+	
 	/* For testing space only for 2 */
-	n_pointers = 2;
 	validate_quotes(line);
-	execs = chop_line(line);
-	execs = ft_memalloc(sizeof(*execs) * n_pointers);
-	execs[0] = before_quote(line);
-	check_for_quotes(execs, line, &n_pointers)
+	n_pointers = 2;
+	execs = (char **)ft_memalloc(sizeof(*execs) * n_pointers);
+	chop_line(line, execs, n_pointers));
 }
 
 char **get_input(void)
@@ -139,6 +172,5 @@ char **get_input(void)
 
 	get_next_line(STDIN_FILENO, &line);
 	parse_input(execs, line);
-	execs = ft_strsplit(line, ' ');
 	return (execs);
 }
