@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/03 15:56:24 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:02:20 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ void	error_exit(char *msg);
 char *ft_search_str(char **haystack, char *needle);
 /* main stuff */
 void loop_eternal(char **environ_cp);
+/*for tests */
+char **chop_line(char *line, char **args, size_t size);
 #endif

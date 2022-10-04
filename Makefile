@@ -12,12 +12,11 @@ $(NAME): $(SRC:%.c=%.o)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft/libft.a
 
 clean:
-	echo $(OBJ)
-	rm $(OBJ)
+	rm -f $(OBJ)
 	make clean -C ./libft
 
 fclean: clean
-	rm $(NAME)
+	rm -f $(NAME)
 	make fclean -C ./libft
 
 re: fclean all

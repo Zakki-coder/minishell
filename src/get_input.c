@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/03 21:01:51 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:55:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	calculate_quotes(char *line, char q_type)
 	return (n);
 }
 
-/* We should validate the ones starting earlier */
-//NOT WORKING YET
 void validate_quotes(char *line)
 {
 	char	*s_quote;	
@@ -116,29 +114,45 @@ char *find_argument(char **line)
 {
 	int		i;
 	char	quote;
+	char	*ret;
 
 	i = 0;
 	quote = 0;
 	while ((*line)[i] && !is_ws((*line)[i]))
 	{
-		while(!is_quote((*line)[i]) && !is_ws((*line)[i]))
+		while(!is_quote((*line)[i]) && !is_ws((*line)[i]) && (*line)[i])
 			++i;
-		if (i > 0 && is_quote((*line)[i]) && !is_ws((*line)[i - 1]))
+		if (is_quote((*line)[i]) && ((i > 0 && !is_ws((*line)[i - 1]))
+			|| i == 0))
 		{
 			quote = (*line)[i];
 			while ((*line)[i] != quote && (*line)[i] != '\0')
 				++i;
+			if ((*line)[i])
+				++i;
 		}
-		++i;
 	}
+	ret = ft_strndup((*line), i);
 	(*line) += i;
-	return (ft_strndup((*line), i));
+	return (ret);
+}
+
+void	track_used_space(char ***args, size_t used_space, size_t *size)
+{
+	int new_size;
+
+	if (used_space >= *size) 
+	{
+		new_size = *size + ((*size) * 2);
+		*args = (char **)ft_realloc_darray((void ***)args, *size, new_size);
+		*size = new_size;
+	}
 }
 /* Hello"    "mom. If there is whitespace or start on the left side of opening quote, then just evaluate whats inside on the quotes. 
 If on the other hand opening quote is touching some other char than ws, then what comes after until next quote is glued to argument */
 char **chop_line(char *line, char **args, size_t size)
 {
-	int		i_args;
+	size_t	i_args;
 
 	//Copy until whitespace or quote.
 	//If quote is touching to some other char than ws, then it is joined
@@ -148,9 +162,14 @@ char **chop_line(char *line, char **args, size_t size)
 	{
 		while (is_ws(*line))
 			++line;
-		args[i_args++] = find_argument(&line);
+		args[i_args] = find_argument(&line);
+		printf("ARG: |%s|\n", args[i_args]);
+		++i_args;
 		//Check for realloc i_args vs size
+		track_used_space(&args, i_args, &size);
 	}
+	/*Just to compile */
+	return args;
 }
 
 int	parse_input(char **execs, char *line)
@@ -159,9 +178,11 @@ int	parse_input(char **execs, char *line)
 	
 	/* For testing space only for 2 */
 	validate_quotes(line);
-	n_pointers = 2;
+	n_pointers = 1;
 	execs = (char **)ft_memalloc(sizeof(*execs) * n_pointers);
-	chop_line(line, execs, n_pointers));
+	chop_line(line, execs, n_pointers);
+	/*For compile*/
+	return -2;
 }
 
 char **get_input(void)
