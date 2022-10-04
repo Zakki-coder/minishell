@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 09:47:47 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/03 12:04:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/04 19:24:02 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char *ft_search_str(char **haystack, char *needle)
+char	*ft_search_str(char **haystack, char *needle)
 {
 	if (!needle || !haystack || !(*haystack))
 		return (NULL);
@@ -26,9 +26,9 @@ char *ft_search_str(char **haystack, char *needle)
 }
 
 /* Not sure if there even is env var PS1 in mac */
-static char *get_prompt(char **environ_cp)
+static char	*get_prompt(char **environ_cp)
 {
-	char *prompt;
+	char	*prompt;
 
 	prompt = ft_search_str(environ_cp, "PS1");
 	if (prompt)
@@ -38,7 +38,7 @@ static char *get_prompt(char **environ_cp)
 	return (prompt);
 }
 
-void loop_eternal(char **environ_cp)
+void	loop_eternal(char **environ_cp)
 {
 	int		signal;
 	char	*prompt;
@@ -46,7 +46,7 @@ void loop_eternal(char **environ_cp)
 
 	signal = 1;
 	prompt = get_prompt(environ_cp);
-	while(signal)
+	while (signal)
 	{
 		ft_putstr(prompt);
 		execs = get_input();

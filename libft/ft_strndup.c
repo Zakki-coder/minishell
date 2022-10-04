@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:53:32 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/04 19:25:37 by jniemine         ###   ########.fr       */
+/*   Created: 2022/10/04 18:40:06 by jniemine          #+#    #+#             */
+/*   Updated: 2022/10/04 18:42:44 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-void	error_exit(char *msg)
+char	*ft_strndup(char *str, size_t n)
 {
-	ft_putstr_fd("ERROR: ", STDERR_FILENO);
-	ft_putstr_fd(msg, STDERR_FILENO);
-	exit(-1);
+	char	*res;
+
+	res = ft_memalloc(n + 1);
+	if (!res)
+		return (NULL);
+	ft_strncpy(res, str, n);
+	res[n] = '\0';
+	return (res);
 }

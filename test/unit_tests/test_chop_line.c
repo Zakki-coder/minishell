@@ -95,4 +95,57 @@ void test_chop_args_with_weak_quotes_mix()
 	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
 }
 
-//TODO: Test with strong and weak quotes mix
+void test_chop_args_with_mixed_quotes()
+{
+	int	size = 2;
+	char *input = "\'1\'\"1\"\"1\'\'1";
+	char *exp[] = {"\'1\'\"1\"\"1\'\'1", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_interesting_input()
+{
+	int	size = 2;
+	char *input = "\'hi\'mom\"MOM\"";
+	char *exp[] = {"\'hi\'mom\"MOM\"", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_interesting_input2()
+{
+	int	size = 2;
+	char *input = "hi\' .    asf    \'mom";
+	char *exp[] = {"hi\' .    asf    \'mom", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_interesting_input3()
+{
+	int	size = 3;
+	char *input = "hi\' .    asf    \'mom Helloooo   ";
+	char *exp[] = {"hi\' .    asf    \'mom", "Helloooo", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_interesting_input4()
+{
+	int	size = 3;
+	char *input = "hi\' .    asf    \'mom \"Helloooo   \"";
+	char *exp[] = {"hi\' .    asf    \'mom", "\"Helloooo   \"", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}

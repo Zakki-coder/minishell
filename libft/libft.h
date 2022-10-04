@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:53:35 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/01 14:33:10 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/04 18:39:21 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+char	*ft_strndup(char *str, size_t n);
+void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 char	*ft_strcpy(char *dst, const char *src);

@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   ft_realloc_darray.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 15:53:32 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/04 19:25:37 by jniemine         ###   ########.fr       */
+/*   Created: 2022/10/04 18:40:52 by jniemine          #+#    #+#             */
+/*   Updated: 2022/10/04 18:42:23 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-void	error_exit(char *msg)
+void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size)
 {
-	ft_putstr_fd("ERROR: ", STDERR_FILENO);
-	ft_putstr_fd(msg, STDERR_FILENO);
-	exit(-1);
+	void	**new;
+	int		i;
+
+	i = 0;
+	if (!d_array || !(*d_array))
+		return (NULL);
+	new = ft_memalloc(new_size);
+	if (!new)
+		return (NULL);
+	while ((*d_array)[i])
+	{
+		new[i] = (*d_array)[i];
+		++i;
+	}
+	ft_freeda(d_array, old_size);
+	return (new);
 }
