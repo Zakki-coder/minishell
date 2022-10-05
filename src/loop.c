@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 09:47:47 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/04 19:24:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:34:46 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ void	loop_eternal(char **environ_cp)
 	while (signal)
 	{
 		ft_putstr(prompt);
-		execs = get_input();
+		execs = get_input(environ_cp);
 	}
 }

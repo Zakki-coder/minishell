@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/05 10:29:37 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/05 21:00:42 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	validate_quotes(char *line)
 		w_quote = ft_strchr(line, '"');
 		if (!s_quote && !w_quote)
 			break ;
-		if (s_quote < w_quote)
+		if (!w_quote || (s_quote && s_quote < w_quote))
 			quote = s_quote;
 		else
 			quote = w_quote;
@@ -55,14 +55,17 @@ void	validate_quotes(char *line)
 
 int	parse_input(char **args, char *line)
 {
+	if (!line)
+		return (0);
 	validate_quotes(line);
-	args = (char **)ft_memalloc(sizeof(*args) * ARG_BUF_SIZE);
-	chop_line(line, args, ARG_BUF_SIZE);
+	args = (char **)ft_memalloc(sizeof(*args) * (ARG_BUF_SIZE + 1));
+	args = chop_line(line, args, ARG_BUF_SIZE + 1);
 	//TODO: Evaluate variables then quotes
+	expander(args);
 	return (-2);
 }
 
-char	**get_input(void)
+char	**get_input(char **environ_cp)
 {
 	int		fd;
 	char	*line;
@@ -70,5 +73,6 @@ char	**get_input(void)
 
 	get_next_line(STDIN_FILENO, &line);
 	parse_input(execs, line);
+	free(line);
 	return (execs);
 }
