@@ -1,3 +1,4 @@
+/* Test chop_line */
 void test_chop_args_without_quotes_one_argument();
 void test_chop_args_without_quotes_two_argument();
 void test_chop_args_without_quotes_multiple_argument();
@@ -11,3 +12,12 @@ void test_chop_args_with_interesting_input();
 void test_chop_args_with_interesting_input2();
 void test_chop_args_with_interesting_input3();
 void test_chop_args_with_interesting_input4();
+void test_chop_args_with_single_backslash();
+void test_chop_args_with_single_backslash2();
+void test_chop_args_with_backslashed_space();
+void test_chop_args_with_backslashed_space_and_space();
+void test_chop_args_with_backslashed_space_after_the_word();
+void test_chop_args_with_backslashed_space_after_the_word2();
+void test_chop_args_with_backslashed_space_after_the_word3();
+void test_chop_args_with_backslashed_space_after_the_word4();
+

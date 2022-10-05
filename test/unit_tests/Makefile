@@ -11,7 +11,7 @@ OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(SRC:%.c=%.o)
+$(NAME): $(SRC:%.c=%.o) test.h
 	@make -C ../../libft
 #	$(CC) -c $(wildcard *.c) ../Unity/src/unity.c ../../libft/libft.a
 	@$(CC) -o $(NAME) $(OBJ) ../../libft/libft.a

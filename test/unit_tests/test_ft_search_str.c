@@ -41,5 +41,13 @@ int main(void) {
 	RUN_TEST(test_chop_args_with_interesting_input2);
 	RUN_TEST(test_chop_args_with_interesting_input3);
 	RUN_TEST(test_chop_args_with_interesting_input4);
+	RUN_TEST(test_chop_args_with_single_backslash);
+	RUN_TEST(test_chop_args_with_single_backslash2);
+	RUN_TEST(test_chop_args_with_backslashed_space);
+	RUN_TEST(test_chop_args_with_backslashed_space_and_space);
+	RUN_TEST(test_chop_args_with_backslashed_space_after_the_word);
+	RUN_TEST(test_chop_args_with_backslashed_space_after_the_word2);
+	RUN_TEST(test_chop_args_with_backslashed_space_after_the_word3);
+	RUN_TEST(test_chop_args_with_backslashed_space_after_the_word4);
 	return UNITY_END();
 }

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/04 20:33:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:29:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	parse_input(char **args, char *line)
 {
 	validate_quotes(line);
 	args = (char **)ft_memalloc(sizeof(*args) * ARG_BUF_SIZE);
-	//TODO: chop_line needs to handle backslash space combo
 	chop_line(line, args, ARG_BUF_SIZE);
 	//TODO: Evaluate variables then quotes
 	return (-2);

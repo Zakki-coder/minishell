@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/04 21:23:29 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/05 10:29:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	is_quote(char c)
 	return (c == '\'' || c == '"');
 }
 
+/* exceptions are [NOTWS]["] and ["][NOTWS] and [\][WS] */
 char	*find_argument(char **line)
 {
 	int		i;
@@ -47,7 +48,6 @@ char	*find_argument(char **line)
 	{
 		while (!is_quote((*line)[i]) && !is_ws((*line)[i]) && (*line)[i])
 			++i;
-		/* exceptions are [NOTWS]["] and ["][NOTWS] and [\][WS] */
 		if (is_ws((*line)[i] && i > 0 && (*line)[i] && (*line)[i - 1] == '\\' && ++i))
 			continue ;
 		if (is_quote((*line)[i]) && ((i > 0 && !is_ws((*line)[i - 1]))

@@ -149,3 +149,91 @@ void test_chop_args_with_interesting_input4()
 	chop_line(input, ret, size);
 	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
 }
+
+void test_chop_args_with_single_backslash()
+{
+	int	size = 2;
+	char *input = "\\ Hello";
+	char *exp[] = {"\\ Hello", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_single_backslash2()
+{
+	int	size = 2;
+	char *input = "\\Hello";
+	char *exp[] = {"\\Hello", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_backslashed_space()
+{
+	int	size = 2;
+	char *input = "\\ Hello";
+	char *exp[] = {"\\ Hello", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_backslashed_space_and_space()
+{
+	int	size = 3;
+	char *input = "\\  Hello";
+	char *exp[] = {"\\ ", "Hello", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_backslashed_space_after_the_word()
+{
+	int	size = 2;
+	char *input = "Hello\\";
+	char *exp[] = {"Hello\\", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_backslashed_space_after_the_word2()
+{
+	int	size = 2;
+	char *input = "Hello\\ ";
+	char *exp[] = {"Hello\\ ", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_backslashed_space_after_the_word3()
+{
+	int	size = 2;
+	char *input = "Hello\\ Mom";
+	char *exp[] = {"Hello\\ Mom", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
+
+void test_chop_args_with_backslashed_space_after_the_word4()
+{
+	int	size = 3;
+	char *input = "Hello\\  Mom";
+	char *exp[] = {"Hello\\ ", "Mom", NULL};
+	char **ret = (char **)malloc(sizeof(*ret) * size);
+	ret[size - 1] = NULL;
+	chop_line(input, ret, size);
+	TEST_ASSERT_EQUAL_STRING_ARRAY (exp, ret, size);
+}
