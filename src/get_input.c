@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/05 21:00:42 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:47:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	validate_quotes(char *line)
 	}
 }
 
-int	parse_input(char **args, char *line)
+int	parse_input(t_token *args, char *line)
 {
 	if (!line)
 		return (0);
 	validate_quotes(line);
-	args = (char **)ft_memalloc(sizeof(*args) * (ARG_BUF_SIZE + 1));
+	args = (t_token *)ft_memalloc(sizeof(args) * (ARG_BUF_SIZE + 1));
 	args = chop_line(line, args, ARG_BUF_SIZE + 1);
 	//TODO: Evaluate variables then quotes
 	expander(args);
@@ -69,7 +69,7 @@ char	**get_input(char **environ_cp)
 {
 	int		fd;
 	char	*line;
-	char	**execs;
+	t_token	*execs;
 
 	get_next_line(STDIN_FILENO, &line);
 	parse_input(execs, line);

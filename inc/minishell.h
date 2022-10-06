@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/05 14:54:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:11:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 #include <stdio.h> // DEEEELETTELTELETLTLTL
 
 #define ARG_BUF_SIZE 1
+
+typedef struct s_token
+{
+	char *token;
+	char *value;
+}	t_token;
+
 /* parse */
 char **get_input(char **environ_cp);
 char **copy_enivornment_var(void);
@@ -32,5 +39,5 @@ int	is_quote(char c);
 /* main stuff */
 void loop_eternal(char **environ_cp);
 /*for tests */
-char **chop_line(char *line, char **args, size_t size);
+t_token *chop_line(char *line, t_token *args, size_t size);
 #endif
