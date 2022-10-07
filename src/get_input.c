@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/06 20:47:29 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:53:06 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,31 @@ void	validate_quotes(char *line)
 	}
 }
 
+void debug_arg_tokens(t_token *args)
+{
+	printf("DAF\n");
+	while (args->token)
+	{
+		printf("ID: %s value: %s\n", args->token, args->value);
+		++args;
+	}
+	exit (0);
+}
+
 int	parse_input(t_token *args, char *line)
 {
 	if (!line)
 		return (0);
 	validate_quotes(line);
-	args = (t_token *)ft_memalloc(sizeof(args) * (ARG_BUF_SIZE + 1));
-	args = chop_line(line, args, ARG_BUF_SIZE + 1);
+	args = (t_token *)ft_memalloc(sizeof(*args) * (TOKEN_POINTER_N + 1));
+	args = chop_line(line, args, TOKEN_POINTER_N);
+	debug_arg_tokens(args);
 	//TODO: Evaluate variables then quotes
 	expander(args);
 	return (-2);
 }
 
-char	**get_input(char **environ_cp)
+t_token	*get_input(char **environ_cp)
 {
 	int		fd;
 	char	*line;

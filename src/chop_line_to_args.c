@@ -6,21 +6,33 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/06 21:10:50 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:09:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	track_used_space(t_token **args, size_t used_space, size_t *size)
+void	track_used_space(t_token **args, size_t current_pointer_n, size_t *max_pointer_n)
 {
-	int	new_size;
+	size_t	new_size;
+	size_t	growth;
+	t_token	*new_args;
+	size_t	i;
 
-	if (used_space >= *size)
+	growth = 2;
+	i = 0;
+	if (current_pointer_n >= *max_pointer_n)
 	{
-		new_size = *size + ((*size) * 2);
-		*args = (t_token *)ft_realloc((void *)(*args), *size, new_size);
-		*size = new_size;
+		new_size = sizeof(**args) * ((*max_pointer_n) + ((*max_pointer_n) * growth));
+		new_args = (t_token *)ft_memalloc(new_size);
+		while (i <= current_pointer_n)
+		{
+			new_args[i] = (*args)[i];
+			++i;
+		}
+		*max_pointer_n = (*max_pointer_n) * growth;
+		free(*args);
+		*args = new_args;
 	}
 }
 
@@ -74,7 +86,7 @@ char	*find_argument(char **line)
 	return (ret);
 }
 
-t_token	*chop_line(char *line, t_token *args, size_t size)
+t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
 {
 	size_t	i_args;
 	char	*argument;
@@ -95,7 +107,7 @@ t_token	*chop_line(char *line, t_token *args, size_t size)
 				args[i_args].token = ft_strdup("WORD");
 		}
 		++i_args;
-		track_used_space(&args, i_args, &size);
+		track_used_space(&args, i_args, &pointer_n);
 		while (is_ws(*line))
 			++line;
 	}

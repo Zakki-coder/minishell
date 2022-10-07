@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/06 21:11:37 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:43:55 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <unistd.h>
 #include <stdio.h> // DEEEELETTELTELETLTLTL
 
-#define ARG_BUF_SIZE 1
+#define TOKEN_POINTER_N 1
 
 typedef struct s_token
 {
@@ -28,9 +28,9 @@ typedef struct s_token
 }	t_token;
 
 /* parse */
-char **get_input(char **environ_cp);
+t_token *get_input(char **environ_cp);
 char **copy_enivornment_var(void);
-char **expander(char **args);
+char **expander(t_token *args);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
