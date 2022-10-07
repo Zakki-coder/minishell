@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/06 21:16:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:17:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ static void usd_touching_strong_quote(char *usd)
 		ft_memmove(usd, usd + 1, ft_strlen(usd + 1) + 1);
 }
 
-static void	expand_variables(t_token *args)
+static void	weak_quotes_expand(char *arg, char *usd, char **environ_cp)
+{
+
+}
+
+static void	expand_variables(t_token *args, char **environ_cp)
 {
 	int		i_arg;
 	char	*usd;
@@ -50,9 +55,9 @@ static void	expand_variables(t_token *args)
 	}
 }
 
-char **expander(t_token *args)
+char **expander(t_token *args, char **environ_cp)
 {
-	expand_variables(args);
+	expand_variables(args, environ_cp);
 	/*FOR COMPILE */
 	return (NULL);
 }

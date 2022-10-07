@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/07 12:09:36 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:07:42 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*find_argument(char **line)
 	quote = 0;
 	while ((*line)[i] && !is_ws((*line)[i]) && !is_nl((*line)[i]))
 	{
-		while (!is_quote((*line)[i]) && !is_ws((*line)[i]) && (*line)[i])
+		while (!is_quote((*line)[i]) && !is_ws((*line)[i]) && (*line)[i] && !is_nl((*line)[i]))
 			++i;
 		if (is_ws((*line)[i] && i > 0 && (*line)[i] && (*line)[i - 1] == '\\' && ++i))
 			continue ;
@@ -77,13 +77,25 @@ char	*find_argument(char **line)
 				++i;
 		}
 	}
-	if ((*line)[i] == '\n' || (*line)[i] == ';')
+	if (i > 1 && ((*line)[i] == '\n' || (*line)[i] == ';'))
+		--i;
+	else if ((*line)[i] == '\n' || (*line)[i] == ';')
 		i = 1;
 	ret = ft_strndup((*line), i);
 	if (!ret)
 		error_exit("Malloc fail");
 	(*line) += i;
 	return (ret);
+}
+
+void	set_token_values(t_token *token, char *token_id, char *value)
+{
+	if (token_id)
+		token->token = token_id;
+	if (value)
+		token->value = value;
+	else
+		token->value = token_id;
 }
 
 t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
@@ -97,14 +109,14 @@ t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
 	while (*line)
 	{
 		if (i_args == 0)
-			args[i_args].token = find_argument(&line);
+			set_token_values(&args[i_args], find_argument(&line), NULL);
 		else
 		{
 			argument = find_argument(&line);
 			if (ft_strequ(argument, "\n") || ft_strequ(argument, ";"))
-				args[i_args].token = ft_strdup("NEWLINE");
+				set_token_values(&args[i_args], ft_strdup("NEWLINE"), argument);
 			else
-				args[i_args].token = ft_strdup("WORD");
+				set_token_values(&args[i_args], ft_strdup("WORD"), argument);
 		}
 		++i_args;
 		track_used_space(&args, i_args, &pointer_n);

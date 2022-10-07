@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/07 11:43:55 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:13:00 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_token
 /* parse */
 t_token *get_input(char **environ_cp);
 char **copy_enivornment_var(void);
-char **expander(t_token *args);
+char **expander(t_token *args, char **environ_cp);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
