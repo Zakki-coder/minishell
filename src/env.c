@@ -3,83 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/07 20:47:44 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/10 21:11:53 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*get_env(char *var, char **environ)
+char	*get_env(char *var, char **environ_cp)
 {
 
 }
 
-int is_underscore(char c)
+int is_accepted_variable_char(char c)
 {
-	return (c == '_');
+	return (c == '_' || ft_isalnum(c));
 }
 
-char	get_brace_pair(char brace)
-{
-	char pair;
-
-	pair = '\0';
-	if (brace == '(')
-		pair = ')';
-	else if (brace == '{')
-		pair = '}';
-	return (pair);
-}
-
-/*Should return pointer? */
-int	search_matching_brace(char *usd, char brace)
-{
-	char pair;
-
-	pair = get_brace_pair(brace);
-	while (*usd && *usd != '}' && *usd != ')')
-		++usd;
-	if (*usd != pair)
-		return (0);
-	return (1);
-}
-
-/* Search mathing brace should retunr pointer*/
-int	test_validity(char *usd)
-{
-	char brace;
-
-	if (ft_strequ(usd, "$"))
-	{
-		if (ft_strequ(usd, "$(") || ft_strequ(usd, "${"))
-		{
-			brace = *(usd + 1);
-			if (!search_matching_brace(usd, brace))
-				error_exit ("Incorrect bracing in variable");
-			usd += 2;
-		}
-		else
-			usd += 1;
-	}
-	while (ft_isalnum(*usd) || is_underscore(*usd))
-		++usd;
-	return (1);
-}
-
+/* Every legal var name char after $ is considered as part of variable name */
 /* The name of a variable can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _). */
-char	*parse_dollar(char *usd)
+char *parse_variable(char *usd)
 {
 	char	*parsed;
 	int		i;
 
 	i = 0;
-	while (!ft_isalnum(*usd) && !is_underscore(*usd))
-		++usd;
-	while (usd[i])
-	{
-
-	}
+	while (is_accepted_variable_char(usd[i]))
+		++i;
+	if (i == 0)
+		return (NULL);
+	parsed = ft_strsub(usd, 0, i);
+	if (!parsed)
+		error_exit("Malloc fail\n");
+	return (parsed);
 }

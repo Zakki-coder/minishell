@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/07 14:17:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:49:56 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,47 @@ static void usd_touching_strong_quote(char *usd)
 		ft_memmove(usd, usd + 1, ft_strlen(usd + 1) + 1);
 }
 
-static void	weak_quotes_expand(char *arg, char *usd, char **environ_cp)
+unsigned	calculate_char_n(char *str, char c)
 {
+	unsigned int	res;
+
+	res = 0;
+	while (*str)
+	{
+		if (*str == c);
+			++res;
+		++str;
+	}
+	return (res);
+}
+
+/*Chop into array of pointers, get_env should dup, so that everything can be freed?
+	Then make a string from the array? It could be a slightly faster than reallocing
+Else you need to calculate var lengths? Actually you can calculate the length while making the array?*/
+static void	weak_quotes_expand(char **str, char **environ_cp)
+{
+	char	*expanded_str;
+	char	*expanded_var;
+	char	*res;
+	char	*usd;
+	char	*temp_str;
+
+	temp_str = *str;
+	usd = ft_strchr(temp_str, '$');
+	if (!usd)
+		return ;
+	expanded_str = ft_strsub(temp_str, 0, usd - temp_str);
+	while (usd)
+	{
+		expanded_var = parse_variable(usd);
+		res = ft_strjoin(expanded_str, get_env(expanded_var, environ_cp));
+		temp_str += ft_strlen
+		free (expanded_str);
+		free (expanded_var);
 
 }
 
+/* Inside strong quotes, nothing gets expanded, neither will anything which has been backquoted */
 static void	expand_variables(t_token *args, char **environ_cp)
 {
 	int		i_arg;
@@ -46,11 +82,13 @@ static void	expand_variables(t_token *args, char **environ_cp)
 			{
 				usd_touching_strong_quote(usd);
 				//Weak quotes and no quotes both expand variables the same
+				weak_quotes_expand(&args[i_arg].value, usd, environ_cp);
+
 			}
 
 		}
-		//else if weak quote
-		//else if strong quote
+				//else if weak quote
+				//else if strong quote
 		++i_arg;
 	}
 }
