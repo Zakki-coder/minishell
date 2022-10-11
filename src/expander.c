@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/10 21:49:56 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:37:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,47 @@ unsigned	calculate_char_n(char *str, char c)
 	return (res);
 }
 
-/*Chop into array of pointers, get_env should dup, so that everything can be freed?
+static int everything_before_usd(char *str, char **dst)
+{
+	char *usd;
+
+	usd = ft_strchr(str, '$');
+	if (usd)
+	{
+		if (usd > str)
+			--usd;
+		*dst = ft_strsub(str, 0, usd - str);
+		if (!(*dst))
+			error_exit("Malloc fail\n");
+	}
+	else
+		*dst = strsub(str, 0, ft_strlen(str));
+	return (ft_strlen(*dst));
+}
+
+/*	Chop into array of pointers, get_env should dup, so that everything can be freed?
 	Then make a string from the array? It could be a slightly faster than reallocing
-Else you need to calculate var lengths? Actually you can calculate the length while making the array?*/
+	Else you need to calculate var lengths? Actually you can calculate the length while making the array?*/
 static void	weak_quotes_expand(char **str, char **environ_cp)
 {
-	char	*expanded_str;
-	char	*expanded_var;
-	char	*res;
-	char	*usd;
-	char	*temp_str;
+	char	**splitted_str;
+	size_t	pointer_n;
+	size_t	i_pointer;
+	size_t	i;
 
-	temp_str = *str;
-	usd = ft_strchr(temp_str, '$');
-	if (!usd)
-		return ;
-	expanded_str = ft_strsub(temp_str, 0, usd - temp_str);
-	while (usd)
+	pointer_n = 10;
+	i_pointer = 0;
+	i = 0;
+	splitted_str = (char **)ft_memalloc(sizeof(*str) * pointer_n);
+	while ((*str)[i])
 	{
-		expanded_var = parse_variable(usd);
-		res = ft_strjoin(expanded_str, get_env(expanded_var, environ_cp));
-		temp_str += ft_strlen
-		free (expanded_str);
-		free (expanded_var);
-
+		i = everything_before_usd(&(*str)[i], &splitted_str[i_pointer++]);
+		if ((*str)[i] == '$')
+		{
+			i = parse_variable(&(*str)[i], &splitted_str[i_pointer]);
+			get_env(&splitted_str[i_pointer++], environ_cp);
+		}
+	}
 }
 
 /* Inside strong quotes, nothing gets expanded, neither will anything which has been backquoted */

@@ -6,13 +6,11 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:40:52 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/05 20:47:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:49:56 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include <stdio.h>//delt
 
 void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size)
 {
