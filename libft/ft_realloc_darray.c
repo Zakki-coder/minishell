@@ -6,13 +6,14 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:40:52 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/11 13:49:56 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:26:38 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size)
+/* Pointer_n is the number of already allocated pointers, new_size is the size to be allocated */
+void	**ft_realloc_darray(void ***d_array, size_t pointer_n, size_t new_size)
 {
 	void	**new;
 	int		i;
@@ -28,7 +29,7 @@ void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size)
 		new[i] = ft_strdup((*d_array)[i]);
 		++i;
 	}
-	ft_freeda(d_array, old_size);
+	ft_freeda(d_array, pointer_n);
 	*d_array = new;
 	return (new);
 }

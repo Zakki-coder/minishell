@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/07 14:07:42 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:19:02 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	set_token_values(t_token *token, char *token_id, char *value)
 	if (value)
 		token->value = value;
 	else
-		token->value = token_id;
+		token->value = ft_strdup(token_id);
 }
 
 t_token	*chop_line(char *line, t_token *args, size_t pointer_n)

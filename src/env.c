@@ -6,27 +6,38 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/11 14:45:27 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:36:03 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*get_env(char **var, char **environ_cp)
+/*
+void printt_environ(char **environ_cp)
+{
+	int i;
+
+	i = 0;
+	while (environ_cp[i])
+		printf("%s\n", environ_cp[i++]);
+}
+*/
+
+void	replace_var_with_value(char **var_name, char **environ_cp)
 {
 	int		i;
 	char	*var_value;
 	char	*needle;
 
 	i = 0;
-	// USE STRN TO COMPARE JUST FOR THE START OF THE STR AND CHECK THAT = IS NEXT
-	while (environ_cp[i] ))
+	while (environ_cp[i] && !ft_strnequ(environ_cp[i], *var_name, ft_strlen(*var_name)))
 		++i;
-	if (!environ_cp[i])
-		var_value = ft_strdup("");
+	if (environ_cp[i] && environ_cp[i][ft_strlen(*var_name)] == '=')
+		var_value = ft_strdup(ft_strchr(environ_cp[i], '=') + 1);
 	else
-		var_value = ft_strdup()
-
+		var_value = ft_strdup("");
+	free (*var_name);
+	*var_name = var_value;
 }
 
 int is_accepted_variable_char(char c)
@@ -51,7 +62,7 @@ int parse_variable(char *usd, char **dst)
 		*dst = ft_strdup("");
 		return (i);
 	}
-	*dst = ft_strsub(usd, 0, i);
+	*dst = ft_strsub(usd, 1, i - 1);
 	if (!(*dst))
 		error_exit("Malloc fail\n");
 	return (i);

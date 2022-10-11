@@ -1,4 +1,4 @@
-NAME = mshell
+NAME = minishell
 DIR_SRCS = src
 CC = gcc
 CFLAGS = #-Wall -Wextra -Werror
