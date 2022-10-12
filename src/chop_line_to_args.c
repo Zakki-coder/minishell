@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/11 19:19:02 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:22:19 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,6 @@ void	track_used_space(t_token **args, size_t current_pointer_n, size_t *max_poin
 		free(*args);
 		*args = new_args;
 	}
-}
-
-int	is_ws(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\v'
-		|| c == '\f' || c == '\r');
-}
-
-int	is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
-
-int is_nl(char c)
-{
-	return (c == '\n' || c == ';');
 }
 
 /* exceptions are [NOTWS]["] and ["][NOTWS] and [\][WS] */

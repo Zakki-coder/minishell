@@ -6,26 +6,13 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/12 13:45:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:16:15 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	calculate_quotes(char *line, char q_type)
-{
-	int	n;
-
-	n = 0;
-	while (line)
-	{
-		if (*line == q_type)
-			++n;
-	}
-	return (n);
-}
-
-void	validate_quotes(char *line)
+static void	validate_quotes(char *line)
 {
 	char	*s_quote;
 	char	*w_quote;
@@ -53,34 +40,7 @@ void	validate_quotes(char *line)
 	}
 }
 
-/*
-void debug_arg_tokens(t_token *args)
-{
-	while (args->token)
-	{
-		printf("ID: %s value: %s\n", args->token, args->value);
-		++args;
-	}
-}
-*/
-
-void free_tokens(t_token **args)
-{
-	t_token *deref;
-
-	deref = *args;
-	while (deref->token)
-	{
-		free (deref->token);
-		free (deref->value);
-		deref->token = NULL;
-		deref->value = NULL;
-		++deref;
-	}
-	free (*args);
-}
-
-void remove_quotes(t_token *args)
+static void remove_quotes(t_token *args)
 {
 	size_t len;
 
@@ -104,7 +64,7 @@ void remove_quotes(t_token *args)
 	}
 }
 
-char **token_to_char(t_token *args)
+static char **token_to_char(t_token *args)
 {
 	char	**res;
 	size_t	len;
@@ -123,16 +83,7 @@ char **token_to_char(t_token *args)
 	return (res);
 }
 
-void	debug_str_array(char **arr)
-{
-	while (*arr)
-	{
-		printf("HERE: |%s|\n", *arr);
-		++arr;
-	}
-}
-
-char	**parse_input(t_token *args, char *line, char **environ_cp)
+static char	**parse_input(t_token *args, char *line, char **environ_cp)
 {
 	char **parsed;
 
@@ -141,12 +92,9 @@ char	**parse_input(t_token *args, char *line, char **environ_cp)
 	validate_quotes(line);
 	args = (t_token *)ft_memalloc(sizeof(*args) * (TOKEN_POINTER_N + 1));
 	args = chop_line(line, args, TOKEN_POINTER_N);
-//	debug_arg_tokens(args);
 	expand_variables(args, environ_cp);
 	remove_quotes(args);
-	//TODO: also do some norming
 	parsed = token_to_char(args);
-//	debug_arg_tokens(args);
 	free_tokens(&args);
 	return (parsed);
 }
@@ -161,7 +109,6 @@ t_token	*get_input(char **environ_cp)
 
 	get_next_line(STDIN_FILENO, &line);
 	parsed = parse_input(execs, line, environ_cp);
-	debug_str_array(parsed);
 	free(line);
 	ft_freeda((void ***)&parsed, calculate_char_pointers(parsed));
 	return (execs);

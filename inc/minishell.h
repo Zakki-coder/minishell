@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 13:44:14 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:18:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ void	error_exit(char *msg);
 char *ft_search_str(char **haystack, char *needle);
 int	is_quote(char c);
 size_t	calculate_char_pointers(char **arr);
+void free_tokens(t_token **args);
 /* main stuff */
 void loop_eternal(char **environ_cp);
 /*for tests */
 t_token *chop_line(char *line, t_token *args, size_t size);
+/* Is functions */
+int	is_ws(char c);
+int	is_quote(char c);
+int is_nl(char c);
 #endif

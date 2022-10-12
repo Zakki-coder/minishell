@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   universal.c                                        :+:      :+:    :+:   */
+/*   is_functions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 13:42:12 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:14:32 by jniemine         ###   ########.fr       */
+/*   Created: 2022/10/12 14:17:46 by jniemine          #+#    #+#             */
+/*   Updated: 2022/10/12 14:18:13 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-size_t	calculate_char_pointers(char **arr)
+int	is_ws(char c)
 {
-	size_t	i;
-
-	i = 0;
-	while (arr[i])
-		++i;
-	return (i);
+	return (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\f' || c == '\r');
 }
 
-void free_tokens(t_token **args)
+int	is_quote(char c)
 {
-	t_token *deref;
+	return (c == '\'' || c == '"');
+}
 
-	deref = *args;
-	while (deref->token)
-	{
-		free (deref->token);
-		free (deref->value);
-		deref->token = NULL;
-		deref->value = NULL;
-		++deref;
-	}
-	free (*args);
+int is_nl(char c)
+{
+	return (c == '\n' || c == ';');
 }
