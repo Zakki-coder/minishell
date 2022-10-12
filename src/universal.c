@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:42:12 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:14:32 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:45:44 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ size_t	calculate_char_pointers(char **arr)
 	return (i);
 }
 
-void free_tokens(t_token **args)
+void	free_tokens(t_token **args)
 {
-	t_token *deref;
+	t_token	*deref;
 
 	deref = *args;
 	while (deref->token)

@@ -6,22 +6,11 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/11 18:36:03 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:44:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*
-void printt_environ(char **environ_cp)
-{
-	int i;
-
-	i = 0;
-	while (environ_cp[i])
-		printf("%s\n", environ_cp[i++]);
-}
-*/
 
 void	replace_var_with_value(char **var_name, char **environ_cp)
 {
@@ -30,7 +19,8 @@ void	replace_var_with_value(char **var_name, char **environ_cp)
 	char	*needle;
 
 	i = 0;
-	while (environ_cp[i] && !ft_strnequ(environ_cp[i], *var_name, ft_strlen(*var_name)))
+	while (environ_cp[i]
+		&& !ft_strnequ(environ_cp[i], *var_name, ft_strlen(*var_name)))
 		++i;
 	if (environ_cp[i] && environ_cp[i][ft_strlen(*var_name)] == '=')
 		var_value = ft_strdup(ft_strchr(environ_cp[i], '=') + 1);
@@ -40,14 +30,15 @@ void	replace_var_with_value(char **var_name, char **environ_cp)
 	*var_name = var_value;
 }
 
-int is_accepted_variable_char(char c)
+int	is_accepted_variable_char(char c)
 {
 	return (c == '_' || ft_isalnum(c));
 }
 
 /* Every legal var name char after $ is considered as part of variable name */
-/* The name of a variable can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character ( _). */
-int parse_variable(char *usd, char **dst)
+/* The name of a variable can contain only letters (a to z or A to Z),
+	numbers ( 0 to 9) or the underscore character ( _). */
+int	parse_variable(char *usd, char **dst)
 {
 	char	*parsed;
 	int		i;

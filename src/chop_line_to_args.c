@@ -6,13 +6,14 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:22:19 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:42:28 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	track_used_space(t_token **args, size_t current_pointer_n, size_t *max_pointer_n)
+void	track_used_space(t_token **args, size_t current_pointer_n
+	, size_t *max_pointer_n)
 {
 	size_t	new_size;
 	size_t	growth;
@@ -23,7 +24,8 @@ void	track_used_space(t_token **args, size_t current_pointer_n, size_t *max_poin
 	i = 0;
 	if (current_pointer_n >= *max_pointer_n)
 	{
-		new_size = sizeof(**args) * ((*max_pointer_n) + ((*max_pointer_n) * growth));
+		new_size = sizeof(**args) * ((*max_pointer_n)
+				+ ((*max_pointer_n) * growth));
 		new_args = (t_token *)ft_memalloc(new_size);
 		while (i <= current_pointer_n)
 		{
@@ -36,31 +38,39 @@ void	track_used_space(t_token **args, size_t current_pointer_n, size_t *max_poin
 	}
 }
 
+static void	find_argument_until_eof(char **line, int *i)
+{
+	char	quote;
+
+	quote = 0;
+	while ((*line)[*i] && !is_ws((*line)[*i]) && !is_nl((*line)[*i]))
+	{
+		while (!is_quote((*line)[*i]) && !is_ws((*line)[*i])
+			&& (*line)[*i] && !is_nl((*line)[*i]))
+			++(*i);
+		if (is_ws((*line)[*i] && i > 0 && (*line)[*i]
+			&& (*line)[*i - 1] == '\\' && ++(*i)))
+			continue ;
+		if (is_quote((*line)[*i]) && ((i > 0 && !is_ws((*line)[*i - 1]))
+			|| i == 0))
+		{
+			quote = (*line)[(*i)++];
+			while ((*line)[*i] != quote && (*line)[*i] != '\0')
+				++(*i);
+			if ((*line)[*i])
+				++(*i);
+		}
+	}
+}
+
 /* exceptions are [NOTWS]["] and ["][NOTWS] and [\][WS] */
 char	*find_argument(char **line)
 {
 	int		i;
-	char	quote;
 	char	*ret;
 
 	i = 0;
-	quote = 0;
-	while ((*line)[i] && !is_ws((*line)[i]) && !is_nl((*line)[i]))
-	{
-		while (!is_quote((*line)[i]) && !is_ws((*line)[i]) && (*line)[i] && !is_nl((*line)[i]))
-			++i;
-		if (is_ws((*line)[i] && i > 0 && (*line)[i] && (*line)[i - 1] == '\\' && ++i))
-			continue ;
-		if (is_quote((*line)[i]) && ((i > 0 && !is_ws((*line)[i - 1]))
-			|| i == 0))
-		{
-			quote = (*line)[i++];
-			while ((*line)[i] != quote && (*line)[i] != '\0')
-				++i;
-			if ((*line)[i])
-				++i;
-		}
-	}
+	find_argument_until_eof(line, &i);
 	if (i > 1 && ((*line)[i] == '\n' || (*line)[i] == ';'))
 		--i;
 	else if ((*line)[i] == '\n' || (*line)[i] == ';')
