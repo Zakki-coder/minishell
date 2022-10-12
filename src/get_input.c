@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/12 15:22:33 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:47:06 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ static void	validate_quotes(char *line)
 	}
 }
 
-static void remove_quotes(t_token *args)
+static void	remove_quotes(t_token *args)
 {
-	size_t len;
+	size_t	len;
 
 	while (args->token)
 	{
@@ -50,21 +50,23 @@ static void remove_quotes(t_token *args)
 		if (is_quote(args->token[0]) && is_quote(args->token[len - 1]))
 		{
 			args->token[len - 1] = '\0';
-			ft_memmove(args->token, &args->token[1], ft_strlen(&args->token[1]));
+			ft_memmove(args->token, &args->token[1],
+				ft_strlen(&args->token[1]));
 			args->token[len - 2] = '\0';
 		}
 		len = ft_strlen(args->value);
 		if (is_quote(args->value[0]) && is_quote(args->value[len - 1]))
 		{
 			args->value[len - 1] = '\0';
-			ft_memmove(args->value, &args->value[1], ft_strlen(&args->value[1]));
+			ft_memmove(args->value, &args->value[1],
+				ft_strlen(&args->value[1]));
 			args->value[len - 2] = '\0';
 		}
 		++args;
 	}
 }
 
-static char **token_to_char(t_token *args)
+static char	**token_to_char(t_token *args)
 {
 	char	**res;
 	size_t	len;
@@ -85,7 +87,7 @@ static char **token_to_char(t_token *args)
 
 static char	**parse_input(t_token *args, char *line, char **environ_cp)
 {
-	char **parsed;
+	char	**parsed;
 
 	if (!line)
 		return (0);
@@ -99,15 +101,6 @@ static char	**parse_input(t_token *args, char *line, char **environ_cp)
 	return (parsed);
 }
 
-void print_char_arr(char **arr)
-{
-	while(*arr)
-	{
-		printf("|%s|\n", *arr);
-		++arr;
-	}
-}
-
 /* Remember that GNL gets rid of newline */
 t_token	*get_input(char **environ_cp)
 {
@@ -118,7 +111,6 @@ t_token	*get_input(char **environ_cp)
 
 	get_next_line(STDIN_FILENO, &line);
 	parsed = parse_input(execs, line, environ_cp);
-	print_char_arr(parsed);
 	free(line);
 	ft_freeda((void ***)&parsed, calculate_char_pointers(parsed));
 	return (execs);

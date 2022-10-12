@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:55:45 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:45:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	construct_str(char **dst, char ***splitted_str)
 	*dst = res;
 }
 
-static void init_expand_arg(char ***splitted_str, size_t *pointer_n, size_t *i_pointer, size_t *i)
+static void	init_expand_arg(char ***splitted_str, size_t *pointer_n,
+	size_t *i_pointer, size_t *i)
 {
 	*pointer_n = 2;
 	*i_pointer = 0;
@@ -73,10 +74,6 @@ static void	expand_arg(char **str, char **environ_cp)
 	size_t	i_pointer;
 	size_t	i;
 
-//	pointer_n = 2;
-//	i_pointer = 0;
-//	i = 0;
-//	splitted_str = (char **)ft_memalloc(sizeof(*splitted_str) * pointer_n);
 	init_expand_arg(&splitted_str, &pointer_n, &i_pointer, &i);
 	while ((*str)[i])
 	{
@@ -89,14 +86,16 @@ static void	expand_arg(char **str, char **environ_cp)
 			i += everything_before_usd(&(*str)[i], &splitted_str[i_pointer++]);
 		if (i_pointer >= pointer_n - 2)
 		{
-			splitted_str = (char **)ft_realloc_darray((void ***)&splitted_str, pointer_n, pointer_n * 2 * sizeof(*splitted_str));
+			splitted_str = (char **)ft_realloc_darray((void ***)&splitted_str,
+					pointer_n, pointer_n * 2 * sizeof(*splitted_str));
 			pointer_n *= 2;
 		}
 	}
 	construct_str(str, &splitted_str);
 }
 
-/* Inside strong quotes, nothing gets expanded, neither will anything which has been backquoted */
+/*	Inside strong quotes, nothing gets expanded,
+	neither will anything which has been backquoted */
 void	expand_variables(t_token *args, char **environ_cp)
 {
 	int		i_arg;
