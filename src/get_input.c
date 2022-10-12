@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/11 21:49:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 13:45:14 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	validate_quotes(char *line)
 	}
 }
 
+/*
 void debug_arg_tokens(t_token *args)
 {
 	while (args->token)
@@ -61,6 +62,7 @@ void debug_arg_tokens(t_token *args)
 		++args;
 	}
 }
+*/
 
 void free_tokens(t_token **args)
 {
@@ -102,8 +104,38 @@ void remove_quotes(t_token *args)
 	}
 }
 
-int	parse_input(t_token *args, char *line, char **environ_cp)
+char **token_to_char(t_token *args)
 {
+	char	**res;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	while (args[i].token)
+		++i;
+	res = (char **)ft_memalloc(sizeof(*res) * (i + 1));
+	i = 0;
+	while (args[i].token)
+	{
+		res[i] = ft_strdup(args[i].value);
+		++i;
+	}
+	return (res);
+}
+
+void	debug_str_array(char **arr)
+{
+	while (*arr)
+	{
+		printf("HERE: |%s|\n", *arr);
+		++arr;
+	}
+}
+
+char	**parse_input(t_token *args, char *line, char **environ_cp)
+{
+	char **parsed;
+
 	if (!line)
 		return (0);
 	validate_quotes(line);
@@ -113,9 +145,10 @@ int	parse_input(t_token *args, char *line, char **environ_cp)
 	expand_variables(args, environ_cp);
 	remove_quotes(args);
 	//TODO: also do some norming
+	parsed = token_to_char(args);
 //	debug_arg_tokens(args);
 	free_tokens(&args);
-	return (-2);
+	return (parsed);
 }
 
 /* Remember that GNL gets rid of newline */
@@ -123,10 +156,13 @@ t_token	*get_input(char **environ_cp)
 {
 	int		fd;
 	char	*line;
+	char	**parsed;
 	t_token	*execs;
 
 	get_next_line(STDIN_FILENO, &line);
-	parse_input(execs, line, environ_cp);
+	parsed = parse_input(execs, line, environ_cp);
+	debug_str_array(parsed);
 	free(line);
+	ft_freeda((void ***)&parsed, calculate_char_pointers(parsed));
 	return (execs);
 }
