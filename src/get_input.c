@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/12 14:33:49 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:22:33 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,15 @@ static char	**parse_input(t_token *args, char *line, char **environ_cp)
 	return (parsed);
 }
 
+void print_char_arr(char **arr)
+{
+	while(*arr)
+	{
+		printf("|%s|\n", *arr);
+		++arr;
+	}
+}
+
 /* Remember that GNL gets rid of newline */
 t_token	*get_input(char **environ_cp)
 {
@@ -109,6 +118,7 @@ t_token	*get_input(char **environ_cp)
 
 	get_next_line(STDIN_FILENO, &line);
 	parsed = parse_input(execs, line, environ_cp);
+	print_char_arr(parsed);
 	free(line);
 	ft_freeda((void ***)&parsed, calculate_char_pointers(parsed));
 	return (execs);

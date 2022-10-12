@@ -116,3 +116,13 @@ $ echo "The current directory is \$(pwd)" #Backslash prevents special meaning fr
 	If $"VAR" output $VAR
 	If "VAR"$ output VAR$
 	*/
+
+	#print env list
+	env
+	#Set variable
+	env <VAR>=<VALUE>
+	#Execute binaries
+	env ls -Rl
+
+
+"Hello Hallo" $PWD MOI "MOIKKUUU $PWD MOI MOI MIO MIO O IM"

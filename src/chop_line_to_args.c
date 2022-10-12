@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:42:28 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:41:26 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	track_used_space(t_token **args, size_t current_pointer_n
 	}
 }
 
-static void	find_argument_until_eof(char **line, int *i)
+static void	find_argument_until_seperator(char **line, int *i)
 {
 	char	quote;
 
@@ -51,8 +51,8 @@ static void	find_argument_until_eof(char **line, int *i)
 		if (is_ws((*line)[*i] && i > 0 && (*line)[*i]
 			&& (*line)[*i - 1] == '\\' && ++(*i)))
 			continue ;
-		if (is_quote((*line)[*i]) && ((i > 0 && !is_ws((*line)[*i - 1]))
-			|| i == 0))
+		if (is_quote((*line)[*i]) && ((*i > 0 && !is_ws((*line)[*i - 1]))
+			|| *i == 0))
 		{
 			quote = (*line)[(*i)++];
 			while ((*line)[*i] != quote && (*line)[*i] != '\0')
@@ -70,7 +70,7 @@ char	*find_argument(char **line)
 	char	*ret;
 
 	i = 0;
-	find_argument_until_eof(line, &i);
+	find_argument_until_seperator(line, &i);
 	if (i > 1 && ((*line)[i] == '\n' || (*line)[i] == ';'))
 		--i;
 	else if ((*line)[i] == '\n' || (*line)[i] == ';')
