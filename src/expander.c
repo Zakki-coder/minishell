@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 15:45:37 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:34:52 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,12 @@ static void	expand_arg(char **str, char **environ_cp)
 void	expand_variables(t_token *args, char **environ_cp)
 {
 	int		i_arg;
-	char	*usd;
-	char	*var;
 
 	i_arg = 0;
 	while (args[i_arg].value)
 	{
 		if (!is_quote(args[i_arg].value[0]))
-		{
-			usd = ft_strchr(args[i_arg].value, '$');
 			expand_arg(&args[i_arg].value, environ_cp);
-		}
 		else if (args[i_arg].value[0] == '"')
 			expand_arg(&args[i_arg].value, environ_cp);
 		++i_arg;

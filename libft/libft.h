@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:53:35 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/04 18:39:21 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/14 08:59:53 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <string.h>
 # include "GNL/get_next_line.h"
+# include "ft_printf/includes/ft_printf.h"
 
 typedef struct s_list
 {

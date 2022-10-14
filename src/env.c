@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:44:18 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:33:47 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	replace_var_with_value(char **var_name, char **environ_cp)
 {
 	int		i;
 	char	*var_value;
-	char	*needle;
 
 	i = 0;
 	while (environ_cp[i]
@@ -40,7 +39,6 @@ int	is_accepted_variable_char(char c)
 	numbers ( 0 to 9) or the underscore character ( _). */
 int	parse_variable(char *usd, char **dst)
 {
-	char	*parsed;
 	int		i;
 
 	i = 0;

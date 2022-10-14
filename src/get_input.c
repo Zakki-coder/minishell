@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/12 15:47:06 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/14 09:10:24 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static void	remove_quotes(t_token *args)
 static char	**token_to_char(t_token *args)
 {
 	char	**res;
-	size_t	len;
 	size_t	i;
 
 	i = 0;
@@ -85,9 +84,10 @@ static char	**token_to_char(t_token *args)
 	return (res);
 }
 
-static char	**parse_input(t_token *args, char *line, char **environ_cp)
+static char	**parse_input(char *line, char **environ_cp)
 {
 	char	**parsed;
+	t_token	*args;
 
 	if (!line)
 		return (0);
@@ -102,16 +102,17 @@ static char	**parse_input(t_token *args, char *line, char **environ_cp)
 }
 
 /* Remember that GNL gets rid of newline */
-t_token	*get_input(char **environ_cp)
+int get_input(char **environ_cp)
 {
-	int		fd;
 	char	*line;
 	char	**parsed;
-	t_token	*execs;
-
-	get_next_line(STDIN_FILENO, &line);
-	parsed = parse_input(execs, line, environ_cp);
-	free(line);
-	ft_freeda((void ***)&parsed, calculate_char_pointers(parsed));
-	return (execs);
+	
+	line = NULL;
+	if (get_next_line(STDIN_FILENO, &line) <= 0) //Error handle -1?
+		return (1);
+	parsed = parse_input(line, environ_cp);
+	execute_bin(parsed, environ_cp);
+	ft_memdel((void **)&line);
+	ft_freeda((void ***)&parsed, calc_chptr(parsed));
+	return (1);
 }

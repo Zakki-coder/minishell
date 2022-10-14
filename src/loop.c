@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 09:47:47 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/12 14:36:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/14 09:01:15 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static char	*get_prompt(char **environ_cp)
 {
 	char	*prompt;
 
+	//This whole function is not needed and easily broken
 	prompt = ft_search_str(environ_cp, "PS1");
 	if (prompt)
 		return (prompt);
@@ -48,6 +49,6 @@ void	loop_eternal(char **environ_cp)
 	while (signal)
 	{
 		ft_putstr(prompt);
-		get_input(environ_cp);
+		signal = get_input(environ_cp);
 	}
 }

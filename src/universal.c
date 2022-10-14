@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   universal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:42:12 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:45:44 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/14 08:49:51 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-size_t	calculate_char_pointers(char **arr)
+size_t	calc_chptr(char **arr)
 {
 	size_t	i;
 

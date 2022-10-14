@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chop_line_to_args.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 15:41:26 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:32:54 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	find_argument_until_seperator(char **line, int *i)
 		while (!is_quote((*line)[*i]) && !is_ws((*line)[*i])
 			&& (*line)[*i] && !is_nl((*line)[*i]))
 			++(*i);
-		if (is_ws((*line)[*i] && i > 0 && (*line)[*i]
+		if (is_ws((*line)[*i] && *i > 0 && (*line)[*i]
 			&& (*line)[*i - 1] == '\\' && ++(*i)))
 			continue ;
 		if (is_quote((*line)[*i]) && ((*i > 0 && !is_ws((*line)[*i - 1]))

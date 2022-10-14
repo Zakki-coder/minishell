@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 14:18:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/14 09:10:41 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 #include <fcntl.h>  //open
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
+
 #include <stdio.h> // DEEEELETTELTELETLTLTL
+#include <errno.h> //DELEELETLTELTE
 
 #define TOKEN_POINTER_N 1
 
@@ -28,17 +31,19 @@ typedef struct s_token
 }	t_token;
 
 /* parse */
-t_token *get_input(char **environ_cp);
+int get_input(char **environ_cp);
 char **copy_enivornment_var(void);
 void	expand_variables(t_token *args, char **environ_cp);
 int	parse_variable(char *usd, char **dst);
 void replace_var_with_value(char **var, char **environ_cp);
+/*Execute*/
+void	execute_bin(char **args, char **environ_cp);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
 char *ft_search_str(char **haystack, char *needle);
 int	is_quote(char c);
-size_t	calculate_char_pointers(char **arr);
+size_t	calc_chptr(char **arr);
 void free_tokens(t_token **args);
 /* main stuff */
 void loop_eternal(char **environ_cp);
