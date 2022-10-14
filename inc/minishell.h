@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/14 09:10:41 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/14 15:17:27 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void	expand_variables(t_token *args, char **environ_cp);
 int	parse_variable(char *usd, char **dst);
 void replace_var_with_value(char **var, char **environ_cp);
 /*Execute*/
-void	execute_bin(char **args, char **environ_cp);
+int	execute_bin(char **args, char **environ_cp);
+void exe_builtins(char **parsed, char **environ_cp);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
 char *ft_search_str(char **haystack, char *needle);
-int	is_quote(char c);
 size_t	calc_chptr(char **arr);
+void	print_char_arr(char **arr);
 void free_tokens(t_token **args);
 /* main stuff */
 void loop_eternal(char **environ_cp);
@@ -53,4 +54,5 @@ t_token *chop_line(char *line, t_token *args, size_t size);
 int	is_ws(char c);
 int	is_quote(char c);
 int is_nl(char c);
+int is_varchr(char c);
 #endif

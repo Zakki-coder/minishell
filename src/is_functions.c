@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_functions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:17:46 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/12 15:47:38 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/14 15:16:50 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,9 @@ int	is_quote(char c)
 int	is_nl(char c)
 {
 	return (c == '\n' || c == ';');
+}
+
+int is_varchr(char c)
+{
+	return (ft_isalnum(c) || c == '_');
 }

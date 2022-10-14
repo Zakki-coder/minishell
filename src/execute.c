@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/14 09:25:45 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/14 09:55:18 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*search_bin(char *cmd, char **environ_cp)
 	return (NULL);
 }
 
-void	execute_bin(char **args, char **environ_cp)
+int	execute_bin(char **args, char **environ_cp)
 {
 	char	*cmd;
 	int		id;
@@ -76,4 +76,5 @@ void	execute_bin(char **args, char **environ_cp)
 	else
 		ft_printf("minishell: %s: command not found...\n", args[0]);
 	ft_memdel((void **)&cmd);
+	return (0);
 }

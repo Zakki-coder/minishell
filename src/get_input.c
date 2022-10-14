@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/14 09:10:24 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/14 13:05:15 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ int get_input(char **environ_cp)
 	if (get_next_line(STDIN_FILENO, &line) <= 0) //Error handle -1?
 		return (1);
 	parsed = parse_input(line, environ_cp);
-	execute_bin(parsed, environ_cp);
+	if (!execute_bin(parsed, environ_cp))
+		exe_builtins(parsed, environ_cp);
 	ft_memdel((void **)&line);
 	ft_freeda((void ***)&parsed, calc_chptr(parsed));
 	return (1);

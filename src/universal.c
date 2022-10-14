@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:42:12 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/14 08:49:51 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/14 13:33:04 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,13 @@ void	free_tokens(t_token **args)
 		++deref;
 	}
 	free (*args);
+}
+
+void	print_char_arr(char **arr)
+{
+	while (*arr)
+	{
+		ft_printf("%s\n", *arr);
+		++arr;
+	}
 }
