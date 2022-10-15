@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/14 15:17:27 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/15 15:24:10 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 #include "../libft/libft.h"
+#include "env.h"
 #include <fcntl.h>  //open
 #include <stdlib.h>
 #include <unistd.h>

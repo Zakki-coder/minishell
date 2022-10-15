@@ -126,3 +126,5 @@ $ echo "The current directory is \$(pwd)" #Backslash prevents special meaning fr
 
 
 "Hello Hallo" $PWD MOI "MOIKKUUU $PWD MOI MOI MIO MIO O IM"
+
+480
