@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/17 17:52:35 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/17 18:25:02 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ static void execute_flags(char **args, int delimit, int flags)
 			ft_printf("cleaning environ\n");
 		if (!(flags & ENV_I) && ft_str_and_len_equ(args[i], "-u"))
 		{
-			ms_unsetenv(args[i + 1]
+			ms_unsetenv(args[i + 1];
 			if (flags & ENV_V)
 				ft_printf("unset:\t%s\n", args[i]);
 		}
@@ -246,6 +246,9 @@ void	ms_env(char **args, char **environ_cp)
 		print_char_arr(environ_cp);
 	else
 	{
+		// Env never makes permanent changes????? So use a cpy from the start
+		environ_bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
+		environ_cp = environ_bk;
 		flags = env_flags(args, environ_cp, &i);
 		//execute i/unset
 		execute_flags(args, i, flags);
@@ -254,7 +257,7 @@ void	ms_env(char **args, char **environ_cp)
 		//execute chdir `
 		execute_flags2(args, i, flags);
 		if (flags & ENV_I)
-			environ_bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
+			//Make "Empty" environ
 		//If cmd is found execute if verbose, print args starting from i.
 		cmd = search_bin(args[i], environ_cp);
 		if (cmd)
@@ -263,7 +266,7 @@ void	ms_env(char **args, char **environ_cp)
 			if (flags & !(flags & ENV_I))
 				execute_bin(args[i], environ_cp);
 			else
-				execute_bin(args[i], environ_bk);
+				execute_bin(args[i], environ_bk); //This should be "empty" environ
 		}
 	}
 }
