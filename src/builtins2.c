@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freeda.c                                        :+:      :+:    :+:   */
+/*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 17:36:12 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/17 16:17:27 by jakken           ###   ########.fr       */
+/*   Created: 2022/10/17 17:51:56 by jakken            #+#    #+#             */
+/*   Updated: 2022/10/17 17:55:57 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "../inc/minishell.h"
 
-int	ft_freeda(void ***a, size_t row)
+void	ms_echo(char **args)
 {
-	unsigned int	i;
+	int i;
 
-	i = 0;
-	while (*a && i < row)
+	i = 1;
+	while (args[i])
 	{
-		free((*a)[i]);
-		(*a)[i] = NULL;
+		ft_printf("%s", args[i]);
 		++i;
 	}
-	free(*a);
-	*a = NULL;
-	return (1);
+	ft_printf("\n");
 }
-	/* 
-	 * Takes the address of double pointer as param a
-	 * and number of sub pointers as param row frees all and sets them to NULL
-	 * Return 1 so can be used inside condition.
-	 */
+
+void	ms_cd(char **args, char **environ_cp)
+{
+	int i;
+
+	i = 1;
+	//Get homepath
+	//parse flags
+}

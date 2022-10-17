@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/15 15:24:10 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/17 11:21:28 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void replace_var_with_value(char **var, char **environ_cp);
 /*Execute*/
 int	execute_bin(char **args, char **environ_cp);
 void exe_builtins(char **parsed, char **environ_cp);
+char	*search_bin(char *cmd, char **environ_cp);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
