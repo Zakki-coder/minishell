@@ -1,1 +1,1 @@
-Do norming and create str array from token array, then parser is ready?
+See how env works on mac, see if clean environment works i.e env -i bash. On mac bash just fetch the correct environ variables from somewhere

@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/17 11:21:28 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/18 18:07:42 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "../libft/libft.h"
 #include "env.h"
+#include "builtins.h"
 #include <fcntl.h>  //open
 #include <stdlib.h>
 #include <unistd.h>
@@ -37,10 +38,14 @@ char **copy_enivornment_var(void);
 void	expand_variables(t_token *args, char **environ_cp);
 int	parse_variable(char *usd, char **dst);
 void replace_var_with_value(char **var, char **environ_cp);
+void	executor(char **args, char **environ_cp);
 /*Execute*/
 int	execute_bin(char **args, char **environ_cp);
 void exe_builtins(char **parsed, char **environ_cp);
 char	*search_bin(char *cmd, char **environ_cp);
+char	*search_variable(char **environ_cp, char *var_name);
+/* Builtins */
+void	ms_echo(char **args);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */

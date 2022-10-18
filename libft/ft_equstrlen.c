@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins2.c                                        :+:      :+:    :+:   */
+/*   ft_equstrlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 17:51:56 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/18 15:31:11 by jakken           ###   ########.fr       */
+/*   Created: 2022/10/18 16:20:56 by jakken            #+#    #+#             */
+/*   Updated: 2022/10/18 16:23:27 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-void	ms_echo(char **args)
+int	ft_equstrlen(char *s1, char *s2)
 {
-	int i;
-
-	i = 1;
-	while (args[i])
-	{
-		ft_printf("%s", args[i]);
-		++i;
-	}
-	ft_printf("\n");
+	return (ft_strequ(s1, s2) && ft_strlen(s1) == ft_strlen(s2));
 }
-
-/*
-void	ms_cd(char **args, char **environ_cp)
-{
-	int i;
-
-	i = 1;
-	//Get homepath
-	//parse flags
-}
-*/

@@ -6,13 +6,14 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 15:24:32 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/15 15:28:36 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/18 15:48:11 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
+/* env flags */
 #define ENV_I 1 
 #define ENV_U 2
 #define ENV_C 4

@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/14 09:55:18 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/18 18:28:25 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ char	*search_variable(char **environ_cp, char *var_name)
 		&& !ft_strnequ(environ_cp[i], var_name, ft_strlen(var_name)))
 		++i;
 	if (environ_cp[i] && environ_cp[i][ft_strlen(var_name)] == '=')
+	{
 		var_value = ft_strdup(ft_strchr(environ_cp[i], '=') + 1);
-	if (!var_value)
-		error_exit("Malloc fail\n");
+		if (!var_value)
+			error_exit("Malloc fail\n");
+	}
 	return (var_value);
 }
 

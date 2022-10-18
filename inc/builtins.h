@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_execs.c                                      :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 12:03:38 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/04 14:01:15 by jniemine         ###   ########.fr       */
+/*   Created: 2022/10/18 15:48:42 by jakken            #+#    #+#             */
+/*   Updated: 2022/10/18 15:50:22 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-/* "echo" hello || echo "hello" 
-With strong quotes '' interpret everything as string, excpet commands.
-with weak quotes "" expand variables \ quotes next char.
-*/
-/*
-char **parse_execs(char **execs)
-{
+#define ENV 0
+#define ECHO 1
+#define SETENV 2
 
-}
-*/
+#endif

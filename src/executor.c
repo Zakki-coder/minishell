@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins2.c                                        :+:      :+:    :+:   */
+/*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 17:51:56 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/18 15:31:11 by jakken           ###   ########.fr       */
+/*   Created: 2022/10/18 16:11:48 by jakken            #+#    #+#             */
+/*   Updated: 2022/10/18 16:37:12 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ms_echo(char **args)
+int	is_builtin(char *cmd)
 {
-	int i;
-
-	i = 1;
-	while (args[i])
-	{
-		ft_printf("%s", args[i]);
-		++i;
-	}
-	ft_printf("\n");
+	return (ft_equstrlen(cmd, "echo")
+		|| ft_equstrlen(cmd, "cd")
+		|| ft_equstrlen(cmd, "setenv")
+		|| ft_equstrlen(cmd, "unsetenv")
+		|| ft_equstrlen(cmd, "env")
+		|| ft_equstrlen(cmd, "exit"));
 }
 
-/*
-void	ms_cd(char **args, char **environ_cp)
+void	executor(char **args, char **environ_cp)
 {
-	int i;
-
-	i = 1;
-	//Get homepath
-	//parse flags
+	if (is_builtin(args[0]))
+		exe_builtins(args, environ_cp);
+	else
+		execute_bin(args, environ_cp);
 }
-*/
