@@ -1,1 +1,3 @@
 See how env works on mac, see if clean environment works i.e env -i bash. On mac bash just fetch the correct environ variables from somewhere
+
+Test cd access on school mac

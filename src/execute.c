@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/18 18:28:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/19 17:18:48 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	execute_bin(char **args, char **environ_cp)
 	int		id;
 	int		wstatus;
 
+	if (!*args)
+		return (0);
 	cmd = search_bin(args[0], environ_cp);
 	if (cmd)
 	{

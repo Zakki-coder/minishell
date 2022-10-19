@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/18 18:23:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/19 16:57:47 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ int	check_var_name (char *var)
 }
 
 //setenv doesn't check the correctness of var name, at least on linux
-int	ms_setenv(const char *name, const char *value, char **environ_cp)
+int	update_env(const char *name, const char *value, char **environ_cp)
 {
 	int		i;
 	char	*name_value;
 
+	i = 0;
 	name_value = ft_memalloc(ft_strlen(name) + ft_strlen(value) + 2);
 	if (!name_value)
 		error_exit("Malloc fail\n");
 	ft_strcpy(name_value, name);
 	ft_strcat(name_value, "=");
-	while (environ_cp[i] && !ft_strequ(environ_cp[i], name_value))
+	while (environ_cp[i] && !ft_strnequ(environ_cp[i], name_value, ft_strlen(name_value)))
 		++i;
 	ft_strcat(name_value, value);
 	if (environ_cp[i])
@@ -152,11 +153,11 @@ void	env_set_var(char **args, char **environ_cp, int *i, int flags)
 		else
 			break ;
 		if (name_val[0] && name_val[1])
-			ms_setenv(name_val[0], name_val[1], environ_cp);
+			update_env(name_val[0], name_val[1], environ_cp);
 		else if (name_val[0])
-			ms_setenv(name_val[0], "", environ_cp);
+			update_env(name_val[0], "", environ_cp);
 		else if (eq)
-			ms_setenv("=", "", environ_cp);
+			update_env("=", "", environ_cp);
 		ft_freeda((void ***)&name_val, calc_chptr(name_val));
 		if (flags & ENV_V)
 			ft_printf("setenv:\t%s\n", environ_cp[calc_chptr(environ_cp)]);
@@ -296,6 +297,8 @@ int char_to_builtin(char *arg)
 		return (ENV);
 	else if (ft_strlen("setenv") == len && ft_strequ("setenv", arg))
 		return (SETENV);
+	else if (ft_strlen("cd") == len && ft_strequ("cd", arg))
+		return (CD);
 	return (-1);
 }
 
@@ -306,10 +309,12 @@ void	exe_builtins(char **args, char **environ_cp)
 	void (*p[3])(char **);
 
 	p[1] = ms_echo;
-//	p[2] = ms_setenv; //So this is the setenv function not the shell command
+//	p[2] = update_env; //So this is the setenv function not the shell command
 	cmd = char_to_builtin(args[0]);
 	if (cmd == ENV)
 		ms_env(args, environ_cp);
+	else if (cmd == CD)
+		ms_cd(args, environ_cp);
 	else if (cmd >= 0)
 		p[cmd](args);
 	else
