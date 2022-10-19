@@ -6,26 +6,13 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/19 16:57:47 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/19 17:41:21 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_var_name (char *var)
-{
-	if (ft_isdigit(var[0]))
-		return (0);
-	while (*var)
-	{
-		if (!is_varchr(*var))
-			return (0);
-		++var;
-	}
-	return (1);
-}
-
-//setenv doesn't check the correctness of var name, at least on linux
+//env doesn't check the correctness of var name, at least on linux
 int	update_env(const char *name, const char *value, char **environ_cp)
 {
 	int		i;
