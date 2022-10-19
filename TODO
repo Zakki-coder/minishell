@@ -3,3 +3,5 @@ See how env works on mac, see if clean environment works i.e env -i bash. On mac
 Test cd access on school mac
 
 Test setenv with multiple mixed <VARNAME> <VALUE> or VARNAME=VALUE patterns
+
+TODO: unsetenv exit tilde
