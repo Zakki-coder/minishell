@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 13:32:33 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 17:10:35 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,10 +287,13 @@ int char_to_builtin(char *arg)
 		return (SETENV);
 	else if (ft_strlen("cd") == len && ft_strequ("cd", arg))
 		return (CD);
+	else if (ft_strlen("exit") == len && ft_strequ("exit", arg))
+		return (EXIT);
 	return (-1);
 }
 
 // There is nothing in p array index zero at the moment, because env takes two args
+// All of these should propably return int to somewhere
 void	exe_builtins(char **args, char ***environ_cp)
 {
 	int cmd;
@@ -304,6 +307,8 @@ void	exe_builtins(char **args, char ***environ_cp)
 		ms_cd(args, *environ_cp);
 	else if (cmd == SETENV)
 		ms_setenv(args, environ_cp);
+	else if (cmd == EXIT)
+		ms_exit(args, *environ_cp);
 	else if (cmd >= 0)
 		p[cmd](args);
 	else

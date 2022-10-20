@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 15:48:42 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 16:59:49 by jakken           ###   ########.fr       */
+/*   Created: 2022/10/20 16:57:44 by jakken            #+#    #+#             */
+/*   Updated: 2022/10/20 17:31:12 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../inc/minishell.h"
 
-#define ENV		0
-#define ECHO	1
-#define SETENV	2
-#define CD		3
-#define EXIT	4
+int	ms_exit(char **args, char **environ_cp)
+{
+	int status;
 
-#endif
+	status = 0;
+	if (args[1])
+		status = ft_atoi(args[1]);
+	ft_freeda((void ***)&args, calc_chptr(args));
+	ft_freeda((void ***)&environ_cp, calc_chptr(environ_cp));
+	exit (status);
+}
