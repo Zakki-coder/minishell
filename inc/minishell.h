@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/19 15:20:39 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:05:11 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,23 @@ typedef struct s_token
 }	t_token;
 
 /* parse */
-int get_input(char **environ_cp);
+int get_input(char ***environ_cp);
 char **copy_enivornment_var(void);
 void	expand_variables(t_token *args, char **environ_cp);
 int	parse_variable(char *usd, char **dst);
 void replace_var_with_value(char **var, char **environ_cp);
-void	executor(char **args, char **environ_cp);
+void	executor(char **args, char ***environ_cp);
 /*Execute*/
 int	execute_bin(char **args, char **environ_cp);
-void exe_builtins(char **parsed, char **environ_cp);
+void exe_builtins(char **parsed, char ***environ_cp);
 char	*search_bin(char *cmd, char **environ_cp);
 char	*search_variable(char **environ_cp, char *var_name);
 /* Builtins */
 void	ms_echo(char **args);
 int	ms_cd(char **args, char **environ_cp);
+int	ms_setenv(char **args, char ***environ_cp);
 /* Env */
-int	update_env(const char *name, const char *value, char **environ_cp);
+int	update_env(const char *name, const char *value, char ***environ_cp);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
@@ -57,7 +58,7 @@ size_t	calc_chptr(char **arr);
 void	print_char_arr(char **arr);
 void free_tokens(t_token **args);
 /* main stuff */
-void loop_eternal(char **environ_cp);
+void loop_eternal(char ***environ_cp);
 /*for tests */
 t_token *chop_line(char *line, t_token *args, size_t size);
 /* Is functions */

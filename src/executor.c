@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.c                                         :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:11:48 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/18 16:37:12 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:00:54 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	is_builtin(char *cmd)
 		|| ft_equstrlen(cmd, "exit"));
 }
 
-void	executor(char **args, char **environ_cp)
+void	executor(char **args, char ***environ_cp)
 {
 	if (is_builtin(args[0]))
 		exe_builtins(args, environ_cp);
 	else
-		execute_bin(args, environ_cp);
+		execute_bin(args, *environ_cp);
 }

@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:31:35 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/19 19:07:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:12:38 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static	int	validate_args(char **args)
 	return (ret);
 }
 
-int	ms_setenv(char **args, char **environ_cp)
+int	ms_setenv(char **args, char ***environ_cp)
 {
 	int		i;
 	char	*eq;
@@ -83,10 +83,14 @@ int	ms_setenv(char **args, char **environ_cp)
 		else
 		{
 			if (args[i + 1] && !ft_strchr(args[i + 1], '='))
-				update_env(args[i], args[++i], environ_cp);
+			{
+				update_env(args[i], args[i + 1], environ_cp);
+				++i;
+			}
 			else
 				update_env(args[i], "", environ_cp);
 		}
 		++i;
 	}
+	return (1);
 }

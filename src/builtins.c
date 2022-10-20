@@ -6,14 +6,14 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/19 17:41:21 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:32:33 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //env doesn't check the correctness of var name, at least on linux
-int	update_env(const char *name, const char *value, char **environ_cp)
+int	update_env(const char *name, const char *value, char ***environ_cp)
 {
 	int		i;
 	char	*name_value;
@@ -24,19 +24,19 @@ int	update_env(const char *name, const char *value, char **environ_cp)
 		error_exit("Malloc fail\n");
 	ft_strcpy(name_value, name);
 	ft_strcat(name_value, "=");
-	while (environ_cp[i] && !ft_strnequ(environ_cp[i], name_value, ft_strlen(name_value)))
+	while ((*environ_cp)[i] && !ft_strnequ((*environ_cp)[i], name_value, ft_strlen(name_value)))
 		++i;
 	ft_strcat(name_value, value);
-	if (environ_cp[i])
+	if ((*environ_cp)[i])
 	{
-		free (environ_cp[i]);
-		environ_cp[i] = name_value;
+		free ((*environ_cp)[i]);
+		(*environ_cp)[i] = name_value;
 	}
 	else
 	{
-		i = calc_chptr(environ_cp);
-		ft_realloc_darray((void ***)&environ_cp, i, sizeof(*environ_cp) * (i + 1));
-		environ_cp[i] = name_value;
+		i = calc_chptr(*environ_cp);
+		ft_realloc_darray((void ***)environ_cp, i, sizeof(**environ_cp) * (i + 2));
+		(*environ_cp)[i] = name_value;
 	}
 	return (0);
 }
@@ -140,11 +140,11 @@ void	env_set_var(char **args, char **environ_cp, int *i, int flags)
 		else
 			break ;
 		if (name_val[0] && name_val[1])
-			update_env(name_val[0], name_val[1], environ_cp);
+			update_env(name_val[0], name_val[1], &environ_cp);
 		else if (name_val[0])
-			update_env(name_val[0], "", environ_cp);
+			update_env(name_val[0], "", &environ_cp);
 		else if (eq)
-			update_env("=", "", environ_cp);
+			update_env("=", "", &environ_cp);
 		ft_freeda((void ***)&name_val, calc_chptr(name_val));
 		if (flags & ENV_V)
 			ft_printf("setenv:\t%s\n", environ_cp[calc_chptr(environ_cp)]);
@@ -215,19 +215,20 @@ static void execute_flags2(char **args, int delimit, int flags)
 	}
 }
 
-char **clean_environ(char **environ_cp)
+char ***clean_environ(char **environ_cp)
 {
-	char **env;
+	char ***env;
 	char *temp;
 
-	env = ft_memalloc(sizeof(*env) * 3);
-	if (!env)
+	env	= ft_memalloc(sizeof (*env) * 1);
+	*env = ft_memalloc(sizeof(**env) * 3);
+	if (!(*env))
 		error_exit("Malloc fail\n");
 	//Hardcode path on mac???
 	temp = search_variable(environ_cp, "PATH");
-	env[0] = ft_strjoin("PATH=", temp);
+	(*env)[0] = ft_strjoin("PATH=", temp);
 	ft_memdel((void **)&temp);
-	env[1] = ft_strdup("Empty");
+	(*env)[1] = ft_strdup("Empty");
 	return (env);
 }
 
@@ -264,7 +265,7 @@ void	ms_env(char **args, char **environ_cp)
 		{
 			ft_memdel((void **)&cmd);
 			if (!(flags & ENV_I))
-				executor(&args[i], environ_cp);
+				executor(&args[i], &environ_cp);
 			else
 			{
 				executor(&args[i], clean_environ(environ_cp));
@@ -290,18 +291,19 @@ int char_to_builtin(char *arg)
 }
 
 // There is nothing in p array index zero at the moment, because env takes two args
-void	exe_builtins(char **args, char **environ_cp)
+void	exe_builtins(char **args, char ***environ_cp)
 {
 	int cmd;
 	void (*p[3])(char **);
 
 	p[1] = ms_echo;
-//	p[2] = update_env; //So this is the setenv function not the shell command
 	cmd = char_to_builtin(args[0]);
 	if (cmd == ENV)
-		ms_env(args, environ_cp);
+		ms_env(args, *environ_cp);
 	else if (cmd == CD)
-		ms_cd(args, environ_cp);
+		ms_cd(args, *environ_cp);
+	else if (cmd == SETENV)
+		ms_setenv(args, environ_cp);
 	else if (cmd >= 0)
 		p[cmd](args);
 	else

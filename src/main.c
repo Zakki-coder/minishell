@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:35:45 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/04 19:20:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:05:44 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ int	main(void)
 	char	**environ_cp;
 
 	environ_cp = copy_enivornment_var();
-	loop_eternal(environ_cp);
+	loop_eternal(&environ_cp);
 }

@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/19 17:10:11 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 12:54:03 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static int chdir_wrap(char *path, char **environ_cp)
 	if (chdir(path) == -1
 		&& ft_printf("minishell: cd: %s: is not a directory\n"))
 		return (0);
-	update_env("OLDPWD", cwd, environ_cp);
+	update_env("OLDPWD", cwd, &environ_cp);
 	cwd_wrap(&cwd);
-	update_env("PWD", cwd, environ_cp);
+	update_env("PWD", cwd, &environ_cp);
 	ft_memdel((void **)&cwd);
 	return (1);
 }

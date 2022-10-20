@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 09:47:47 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/14 09:01:15 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:03:18 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static char	*get_prompt(char **environ_cp)
 	return (prompt);
 }
 
-void	loop_eternal(char **environ_cp)
+void	loop_eternal(char ***environ_cp)
 {
 	int		signal;
 	char	*prompt;
 
 	signal = 1;
-	prompt = get_prompt(environ_cp);
+	prompt = get_prompt(*environ_cp);
 	while (signal)
 	{
 		ft_putstr(prompt);

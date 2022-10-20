@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/18 16:36:58 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/20 13:02:19 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static char	**parse_input(char *line, char **environ_cp)
 }
 
 /* Remember that GNL gets rid of newline */
-int get_input(char **environ_cp)
+int get_input(char ***environ_cp)
 {
 	char	*line;
 	char	**parsed;
@@ -110,7 +110,7 @@ int get_input(char **environ_cp)
 	line = NULL;
 	if (get_next_line(STDIN_FILENO, &line) <= 0) //Error handle -1?
 		return (1);
-	parsed = parse_input(line, environ_cp);
+	parsed = parse_input(line, *environ_cp);
 	executor(parsed, environ_cp);
 	ft_memdel((void **)&line);
 	ft_freeda((void ***)&parsed, calc_chptr(parsed));
