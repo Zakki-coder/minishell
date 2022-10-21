@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 14:44:07 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 16:29:09 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,32 @@ static int chdir_wrap(char *path, char ***environ_cp)
 	if (chdir(path) == -1
 		&& ft_printf("minishell: cd: %s: is not a directory\n", path))
 		return (0);
-	ft_memdel((void **)&path);
 	update_env("OLDPWD", cwd, environ_cp);
 	ft_memdel((void **)&cwd);
 	cwd_wrap(&cwd);
 	update_env("PWD", cwd, environ_cp);
 	ft_memdel((void **)&cwd);
 	return (1);
+}
+
+static int	prev(char **args, char ***environ_cp, char **cwd)
+{
+	char *path;
+
+	if (ft_equstrlen(args[1], "-"))
+	{
+		path = search_variable(*environ_cp, "OLDPWD");
+		if (!path && ft_printf("minishell: cd: OLDPWD not set\n"))
+			return (1);
+		if(chdir_wrap(path, environ_cp) && cwd_wrap(cwd))
+		{
+			ft_memdel((void **)&path);
+			ft_printf("%s\n", *cwd);
+			ft_memdel((void **)cwd);
+		}
+		return (1);
+	}
+	return (0);
 }
 
 int	ms_cd(char **args, char ***environ_cp)
@@ -75,20 +94,11 @@ int	ms_cd(char **args, char ***environ_cp)
 	{
 		path = search_variable(*environ_cp, "HOME");
 		chdir_wrap(path, environ_cp);
+		ft_memdel((void **)&path);
 		return (0);
 	}
-	if (ft_equstrlen(args[1], "-"))
-	{
-		path = search_variable(*environ_cp, "OLDPWD");
-		if (!path && ft_printf("minishell: cd: OLDPWD not set\n"))
-			return (0);
-		if(chdir_wrap(path, environ_cp) && cwd_wrap(&cwd))
-		{
-			ft_printf("%s\n", cwd);
-			ft_memdel((void **)&cwd);
-		}
+	if (prev(args, environ_cp, &cwd))
 		return (0);
-	}
 	else
 	{
 		chdir_wrap(args[1], environ_cp);
