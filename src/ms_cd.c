@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 16:29:09 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 16:37:57 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	ms_cd(char **args, char ***environ_cp)
 	if (!args[1] || (args[1] && ft_equstrlen(args[1], "--")))
 	{
 		path = search_variable(*environ_cp, "HOME");
+		if (!path && ft_printf("minishell: cd: HOME not found\n"))
+			return (0);
 		chdir_wrap(path, environ_cp);
 		ft_memdel((void **)&path);
 		return (0);

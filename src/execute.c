@@ -6,12 +6,13 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 15:29:31 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 16:48:52 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/* Allocates return value */
 char	*search_variable(char **environ_cp, char *var_name)
 {
 	int		i;

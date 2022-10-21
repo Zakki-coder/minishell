@@ -1,5 +1,7 @@
 See how env works on mac, see if clean environment works i.e env -i bash. On mac bash just fetch the correct environ variables from somewhere
 
+env -u <VARIABLE> <incorrect bin name> should print error about filename
+
 Test cd access permissions on school mac
 
 Test setenv with multiple mixed <VARNAME> <VALUE> or VARNAME=VALUE patterns

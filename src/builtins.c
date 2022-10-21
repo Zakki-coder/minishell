@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 14:40:18 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 18:50:05 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,8 @@ void	env_set_var(char **args, char **environ_cp, int *i, int flags)
 	}
 }
 
-int ms_unsetenv(char *name, char **environ_cp)
+// TODO This is breaking the list, so that freeda aint working
+int unset(char *name, char ***environ_cp)
 {
 	char	*var_name;
 	int		i;
@@ -163,22 +164,27 @@ int ms_unsetenv(char *name, char **environ_cp)
 	var_name = ft_memalloc(ft_strlen(name) + 2);
 	if (!var_name)
 		error_exit("Malloc fail\n");
-	var_name[ft_strlen(name)] = '=';
-	while (!ft_strequ(environ_cp[i], var_name))
+	ft_strcpy(var_name, name);
+	ft_strcat(var_name, "=");
+	while ((*environ_cp)[i] && !ft_strnequ((*environ_cp)[i], var_name, ft_strlen(var_name)))
 		++i;
-	if (environ_cp[i])
+	if ((*environ_cp)[i])
 	{
-		ft_memdel((void *)environ_cp[i]);
-		while (environ_cp[i + 1])
+		ft_memdel((void **)&(*environ_cp)[i]);
+		while ((*environ_cp)[i + 1])
 		{
-			environ_cp[i] = environ_cp[i + 1];
+			(*environ_cp)[i] = (*environ_cp)[i + 1];
 			++i;
 		}
+		(*environ_cp)[i] = (*environ_cp)[i + 1];
 	}
+	ft_memdel((void *)&var_name);
 	return (0);
 }
 
-static void execute_flags(char **args, int delimit, int flags, char **environ_cp)
+//TODO Check that unset doestn cause leak
+//TODO Unset with multiples not handled
+static int execute_flags(char **args, int delimit, int flags, char **environ_cp)
 {
 	int i;
 
@@ -189,12 +195,13 @@ static void execute_flags(char **args, int delimit, int flags, char **environ_cp
 			ft_printf("cleaning environ\n");
 		if (!(flags & ENV_I) && ft_equstrlen(args[i], "-u"))
 		{
-			ms_unsetenv(args[i + 1], environ_cp);
+			unset(args[i + 1], &environ_cp);
 			if (flags & ENV_V)
 				ft_printf("unset:\t%s\n", args[i]);
 		}
 		++i;
 	}
+	return (i);
 }
 
 static void execute_flags2(char **args, int delimit, int flags)
@@ -254,7 +261,7 @@ void	ms_env(char **args, char **environ_cp)
 		environ_cp = environ_bk;
 		flags = env_flags(args, environ_cp, &i);
 		//execute i/unset
-		execute_flags(args, i, flags, environ_cp);
+		i = execute_flags(args, i, flags, environ_cp);
 		//setenv
 		env_set_var(args, environ_cp, &i, flags);
 		//execute chdir `
@@ -271,6 +278,8 @@ void	ms_env(char **args, char **environ_cp)
 				executor(&args[i], clean_environ(environ_cp));
 			}
 		}
+		else
+			print_char_arr(environ_cp);
 	}
 }
 
@@ -289,6 +298,8 @@ int char_to_builtin(char *arg)
 		return (CD);
 	else if (ft_strlen("exit") == len && ft_strequ("exit", arg))
 		return (EXIT);
+	else if (ft_strlen("unsetenv") == len && ft_strequ("unsetenv", arg))
+		return (UNSETENV);
 	return (-1);
 }
 
@@ -297,9 +308,7 @@ int char_to_builtin(char *arg)
 void	exe_builtins(char **args, char ***environ_cp)
 {
 	int cmd;
-	void (*p[3])(char **);
 
-	p[1] = ms_echo;
 	cmd = char_to_builtin(args[0]);
 	if (cmd == ENV)
 		ms_env(args, *environ_cp);
@@ -309,8 +318,10 @@ void	exe_builtins(char **args, char ***environ_cp)
 		ms_setenv(args, environ_cp);
 	else if (cmd == EXIT)
 		ms_exit(args, *environ_cp);
-	else if (cmd >= 0)
-		p[cmd](args);
+	else if (cmd == UNSETENV)
+		ms_unsetenv(args, environ_cp);
+	else if (cmd == ECHO)
+		ms_echo(args);
 	else
 		ft_printf("minishell: %s: command not found...\n", args[0]);
 }

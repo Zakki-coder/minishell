@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/21 14:42:01 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 18:25:21 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ char	*search_variable(char **environ_cp, char *var_name);
 void	ms_echo(char **args);
 int	ms_cd(char **args, char ***environ_cp);
 int	ms_setenv(char **args, char ***environ_cp);
+int	ms_unsetenv(char **args, char ***environ_cp);
 int	ms_exit(char **args, char **environ_cp);
 /* Env */
 int	update_env(const char *name, const char *value, char ***environ_cp);
+int unset(char *name, char ***environ_cp);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */

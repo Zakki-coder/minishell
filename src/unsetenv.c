@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 16:57:44 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 17:00:50 by jakken           ###   ########.fr       */
+/*   Created: 2022/10/21 16:39:24 by jakken            #+#    #+#             */
+/*   Updated: 2022/10/21 18:24:58 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ms_exit(char **args, char **environ_cp)
+int	ms_unsetenv(char **args, char ***environ_cp)
 {
-	int status;
+	int 	i;
 
-	status = 0;
-	if (args[1])
-		status = ft_atoi(args[1]);
-	ft_freeda((void ***)&args, calc_chptr(args));
-	ft_freeda((void ***)&environ_cp, calc_chptr(environ_cp));
-	exit (status);
+	i = 1;
+	while (args[i])
+	{
+		unset(args[i], environ_cp);
+		++i;
+	}
+	return (1);
 }
