@@ -4,4 +4,7 @@ Test cd access on school mac
 
 Test setenv with multiple mixed <VARNAME> <VALUE> or VARNAME=VALUE patterns
 
-TODO: unsetenv exit tilde
+TODO: unsetenv tilde
+
+GNL is leaking, probably it reads only to nl and returns
+unset path and home and see what happens

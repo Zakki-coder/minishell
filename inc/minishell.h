@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/20 17:31:43 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 14:42:01 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*search_bin(char *cmd, char **environ_cp);
 char	*search_variable(char **environ_cp, char *var_name);
 /* Builtins */
 void	ms_echo(char **args);
-int	ms_cd(char **args, char **environ_cp);
+int	ms_cd(char **args, char ***environ_cp);
 int	ms_setenv(char **args, char ***environ_cp);
 int	ms_exit(char **args, char **environ_cp);
 /* Env */

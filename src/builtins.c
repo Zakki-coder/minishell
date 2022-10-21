@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 17:10:35 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 14:40:18 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ void	exe_builtins(char **args, char ***environ_cp)
 	if (cmd == ENV)
 		ms_env(args, *environ_cp);
 	else if (cmd == CD)
-		ms_cd(args, *environ_cp);
+		ms_cd(args, environ_cp);
 	else if (cmd == SETENV)
 		ms_setenv(args, environ_cp);
 	else if (cmd == EXIT)

@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 18:40:22 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 15:02:08 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ int get_input(char ***environ_cp)
 	parsed = parse_input(line, *environ_cp);
 	ft_memdel((void **)&line);
 	executor(parsed, environ_cp);
+	ft_freeda((void ***)&parsed, calc_chptr(parsed));
 	return (1);
 }

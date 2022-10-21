@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:36:12 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/17 16:17:27 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 15:20:55 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_freeda(void ***a, size_t row)
 	unsigned int	i;
 
 	i = 0;
-	while (*a && i < row)
+	while ((*a) && (*a)[i] && i < row)
 	{
 		free((*a)[i]);
 		(*a)[i] = NULL;

@@ -6,12 +6,13 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 09:47:47 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 13:03:18 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 14:50:58 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/*
 char	*ft_search_str(char **haystack, char *needle)
 {
 	if (!needle || !haystack || !(*haystack))
@@ -24,8 +25,10 @@ char	*ft_search_str(char **haystack, char *needle)
 	}
 	return (NULL);
 }
+*/
 
 /* Not sure if there even is env var PS1 in mac */
+/*
 static char	*get_prompt(char **environ_cp)
 {
 	char	*prompt;
@@ -38,14 +41,15 @@ static char	*get_prompt(char **environ_cp)
 		prompt = ft_strdup("$ ");
 	return (prompt);
 }
+*/
 
 void	loop_eternal(char ***environ_cp)
 {
 	int		signal;
-	char	*prompt;
+	const char	*prompt = ":-) ";
 
 	signal = 1;
-	prompt = get_prompt(*environ_cp);
+//	prompt = get_prompt(*environ_cp);
 	while (signal)
 	{
 		ft_putstr(prompt);

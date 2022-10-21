@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 12:54:03 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/21 14:44:07 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int cwd_wrap(char **cwd)
 	return (1);
 }
 
-static int chdir_wrap(char *path, char **environ_cp)
+static int chdir_wrap(char *path, char ***environ_cp)
 {
 	char	*cwd;
 
@@ -55,29 +55,31 @@ static int chdir_wrap(char *path, char **environ_cp)
 	cwd_wrap(&cwd);
 	//If path is home dont print cwd after change
 	if (chdir(path) == -1
-		&& ft_printf("minishell: cd: %s: is not a directory\n"))
+		&& ft_printf("minishell: cd: %s: is not a directory\n", path))
 		return (0);
-	update_env("OLDPWD", cwd, &environ_cp);
+	ft_memdel((void **)&path);
+	update_env("OLDPWD", cwd, environ_cp);
+	ft_memdel((void **)&cwd);
 	cwd_wrap(&cwd);
-	update_env("PWD", cwd, &environ_cp);
+	update_env("PWD", cwd, environ_cp);
 	ft_memdel((void **)&cwd);
 	return (1);
 }
 
-int	ms_cd(char **args, char **environ_cp)
+int	ms_cd(char **args, char ***environ_cp)
 {
 	char	*cwd;
 	char	*path;
 
 	if (!args[1] || (args[1] && ft_equstrlen(args[1], "--")))
 	{
-		path = search_variable(environ_cp, "HOME");
+		path = search_variable(*environ_cp, "HOME");
 		chdir_wrap(path, environ_cp);
 		return (0);
 	}
 	if (ft_equstrlen(args[1], "-"))
 	{
-		path = search_variable(environ_cp, "OLDPWD");
+		path = search_variable(*environ_cp, "OLDPWD");
 		if (!path && ft_printf("minishell: cd: OLDPWD not set\n"))
 			return (0);
 		if(chdir_wrap(path, environ_cp) && cwd_wrap(&cwd))
