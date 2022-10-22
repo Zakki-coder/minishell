@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/13 15:34:52 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/22 18:02:20 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ static void	expand_arg(char **str, char **environ_cp)
 		{
 			i += parse_variable(&(*str)[i], &splitted_str[i_pointer]);
 			replace_var_with_value(&splitted_str[i_pointer++], environ_cp);
+		}
+		else if ((*str)[0] == '~')
+		{
+			i += expand_tilde(&(*str)[i], &splitted_str[i_pointer], environ_cp);
 		}
 		else
 			i += everything_before_usd(&(*str)[i], &splitted_str[i_pointer++]);

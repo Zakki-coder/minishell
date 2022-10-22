@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/21 18:25:21 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/22 18:01:40 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	expand_variables(t_token *args, char **environ_cp);
 int	parse_variable(char *usd, char **dst);
 void replace_var_with_value(char **var, char **environ_cp);
 void	executor(char **args, char ***environ_cp);
+int expand_tilde(char *tilde, char **dest, char **environ_cp);
 /*Execute*/
 int	execute_bin(char **args, char **environ_cp);
 void exe_builtins(char **parsed, char ***environ_cp);
