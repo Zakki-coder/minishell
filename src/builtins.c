@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 18:50:05 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/22 13:01:03 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static int env_flags(char **args, char **environ_cp, int *i)
 	return (flags);
 }
 
-void	env_set_var(char **args, char **environ_cp, int *i, int flags)
+void	env_set_var(char **args, char ***environ_cp, int *i, int flags)
 {
 	char	**name_val;
 	char	*eq;
@@ -140,14 +140,14 @@ void	env_set_var(char **args, char **environ_cp, int *i, int flags)
 		else
 			break ;
 		if (name_val[0] && name_val[1])
-			update_env(name_val[0], name_val[1], &environ_cp);
+			update_env(name_val[0], name_val[1], environ_cp);
 		else if (name_val[0])
-			update_env(name_val[0], "", &environ_cp);
+			update_env(name_val[0], "", environ_cp);
 		else if (eq)
-			update_env("=", "", &environ_cp);
+			update_env("=", "", environ_cp);
 		ft_freeda((void ***)&name_val, calc_chptr(name_val));
 		if (flags & ENV_V)
-			ft_printf("setenv:\t%s\n", environ_cp[calc_chptr(environ_cp)]);
+			ft_printf("setenv:\t%s\n", (*environ_cp)[calc_chptr(*environ_cp)]);
 		++(*i);
 	}
 }
@@ -184,7 +184,7 @@ int unset(char *name, char ***environ_cp)
 
 //TODO Check that unset doestn cause leak
 //TODO Unset with multiples not handled
-static int execute_flags(char **args, int delimit, int flags, char **environ_cp)
+static void execute_flags(char **args, int delimit, int flags, char **environ_cp)
 {
 	int i;
 
@@ -201,7 +201,6 @@ static int execute_flags(char **args, int delimit, int flags, char **environ_cp)
 		}
 		++i;
 	}
-	return (i);
 }
 
 static void execute_flags2(char **args, int delimit, int flags)
@@ -222,30 +221,35 @@ static void execute_flags2(char **args, int delimit, int flags)
 	}
 }
 
-char ***clean_environ(char **environ_cp)
+char **clean_environ(char **environ_cp)
 {
-	char ***env;
+	char **env;
 	char *temp;
 
-	env	= ft_memalloc(sizeof (*env) * 1);
-	*env = ft_memalloc(sizeof(**env) * 3);
-	if (!(*env))
+	env = ft_memalloc(sizeof(*env) * 3);
+	if (!env)
 		error_exit("Malloc fail\n");
 	//Hardcode path on mac???
 	temp = search_variable(environ_cp, "PATH");
-	(*env)[0] = ft_strjoin("PATH=", temp);
+	env[0] = ft_strjoin("PATH=", temp);
 	ft_memdel((void **)&temp);
-	(*env)[1] = ft_strdup("Empty");
+	env[1] = ft_strdup("Empty");
 	return (env);
 }
 
 // TODO check whic flags are needed on mac, first check for flags, then execute if there are exes
 // TODO set _= when creating environ_cp
+/* At least on linux -i not working beacause of execve:
+      	the use of a third  argument  to  the
+       main  function  is not specified in POSIX.1; according to
+       POSIX.1, the environment should be accessed via  the  ex‐
+       ternal variable environ(7).
+*/
 void	ms_env(char **args, char **environ_cp)
 {
 	size_t		len;
 	int			i;
-	char		*cmd;
+//	char		*cmd;
 	unsigned	flags;
 	char		**environ_bk;
 
@@ -261,21 +265,22 @@ void	ms_env(char **args, char **environ_cp)
 		environ_cp = environ_bk;
 		flags = env_flags(args, environ_cp, &i);
 		//execute i/unset
-		i = execute_flags(args, i, flags, environ_cp);
+		execute_flags(args, i, flags, environ_cp);
 		//setenv
-		env_set_var(args, environ_cp, &i, flags);
+		env_set_var(args, &environ_cp, &i, flags);
 		//execute chdir `
 		execute_flags2(args, i, flags);
 		//If cmd is found execute if verbose, print args starting from i.
-		cmd = search_bin(args[i], environ_cp);
-		if (cmd)
+//		cmd = search_bin(args[i], environ_cp);
+		if (/*cmd*/args[i])
 		{
-			ft_memdel((void **)&cmd);
+//			ft_memdel((void **)&cmd);
 			if (!(flags & ENV_I))
 				executor(&args[i], &environ_cp);
 			else
 			{
-				executor(&args[i], clean_environ(environ_cp));
+				environ_cp = clean_environ(environ_cp);
+				executor(&args[i], &environ_cp);
 			}
 		}
 		else
