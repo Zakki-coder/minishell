@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/13 15:33:47 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 20:19:52 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,23 @@ void	replace_var_with_value(char **var_name, char **environ_cp)
 {
 	int		i;
 	char	*var_value;
+	char	*var;
 
 	i = 0;
+	var = ft_memalloc(ft_strlen(*var_name) + 2);
+	if (!var)
+		error_exit("Malloc fail\n");
+	ft_strcpy(var, *var_name);
+	ft_strcat(var, "=");
 	while (environ_cp[i]
-		&& !ft_strnequ(environ_cp[i], *var_name, ft_strlen(*var_name)))
+		&& !ft_strnequ(environ_cp[i], var, ft_strlen(var)))
 		++i;
 	if (environ_cp[i] && environ_cp[i][ft_strlen(*var_name)] == '=')
 		var_value = ft_strdup(ft_strchr(environ_cp[i], '=') + 1);
 	else
 		var_value = ft_strdup("");
 	free (*var_name);
+	ft_memdel((void **)&var);
 	*var_name = var_value;
 }
 
