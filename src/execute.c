@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/22 12:55:32 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 19:31:51 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int	ft_memd_w(void **ap)
 	return (1);
 }
 
+int ft_freeda_w(void ***a, size_t row)
+{
+	ft_freeda(a, row);
+	return (1);
+}
+
 char	*search_bin(char *cmd, char **environ_cp)
 {
 	char	**bin_paths;
@@ -49,6 +55,7 @@ char	*search_bin(char *cmd, char **environ_cp)
 
 	i = 0;
 	temp_path = search_variable(environ_cp, "PATH");
+	bin_paths = NULL;
 	if (temp_path)
 		bin_paths = ft_strsplit(temp_path, ':');
 	while (ft_memd_w((void **)&temp_path) && bin_paths && bin_paths[i])
@@ -56,11 +63,9 @@ char	*search_bin(char *cmd, char **environ_cp)
 		temp_path = ft_strjoin(bin_paths[i], "/");
 		exepath = ft_strjoin(temp_path, cmd);
 		if (ft_memd_w((void **)&temp_path) && !access(exepath, F_OK)
-			&& !access(exepath, X_OK))
-		{
-			ft_freeda((void ***)&bin_paths, calc_chptr(bin_paths));
+			&& !access(exepath, X_OK)
+			&& ft_freeda_w((void ***)&bin_paths, calc_chptr(bin_paths)))
 			return (exepath);
-		}
 		else
 			ft_memdel((void **)&exepath);
 		++i;

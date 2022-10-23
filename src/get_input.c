@@ -6,13 +6,13 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 15:02:08 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 19:23:10 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void	validate_quotes(char *line)
+static int	validate_quotes(char *line)
 {
 	char	*s_quote;
 	char	*w_quote;
@@ -29,15 +29,14 @@ static void	validate_quotes(char *line)
 		else
 			quote = w_quote;
 		quote = ft_strchr(quote + 1, *quote);
-		if (!quote)
-		{
-			free (line);
-			error_exit("Unclosed quotes\n");
-		}
+		//TODO Free line from caller
+		if (!quote && ft_printf("minishell: unclosed quotes\n"))
+			return (0);
 		else
 			line = quote;
 		++line;
 	}
+	return (1);
 }
 
 static void	remove_quotes(t_token *args)
@@ -91,7 +90,8 @@ static char	**parse_input(char *line, char **environ_cp)
 
 	if (!line)
 		return (0);
-	validate_quotes(line);
+	if (!validate_quotes(line))
+		return (NULL);
 	args = (t_token *)ft_memalloc(sizeof(*args) * (TOKEN_POINTER_N + 1));
 	args = chop_line(line, args, TOKEN_POINTER_N);
 	expand_variables(args, environ_cp);
@@ -112,6 +112,8 @@ int get_input(char ***environ_cp)
 	get_next_line(STDIN_FILENO, &line);
 	parsed = parse_input(line, *environ_cp);
 	ft_memdel((void **)&line);
+	if (!parsed)
+		return (1);
 	executor(parsed, environ_cp);
 	ft_freeda((void ***)&parsed, calc_chptr(parsed));
 	return (1);

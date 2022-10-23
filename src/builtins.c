@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 09:36:02 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/22 13:01:03 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 18:51:34 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,11 +226,13 @@ char **clean_environ(char **environ_cp)
 	char **env;
 	char *temp;
 
+	temp = search_variable(environ_cp, "PATH");
+	if (!temp)
+		return (NULL);
 	env = ft_memalloc(sizeof(*env) * 3);
 	if (!env)
 		error_exit("Malloc fail\n");
 	//Hardcode path on mac???
-	temp = search_variable(environ_cp, "PATH");
 	env[0] = ft_strjoin("PATH=", temp);
 	ft_memdel((void **)&temp);
 	env[1] = ft_strdup("Empty");
@@ -271,10 +273,8 @@ void	ms_env(char **args, char **environ_cp)
 		//execute chdir `
 		execute_flags2(args, i, flags);
 		//If cmd is found execute if verbose, print args starting from i.
-//		cmd = search_bin(args[i], environ_cp);
 		if (/*cmd*/args[i])
 		{
-//			ft_memdel((void **)&cmd);
 			if (!(flags & ENV_I))
 				executor(&args[i], &environ_cp);
 			else

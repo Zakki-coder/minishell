@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_enivorment_variables.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:37:37 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/04 19:19:46 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/23 19:34:57 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	calculate_pointers(void)
 
 	local_env = environ;
 	i = 0;
-	while (*local_env++)
+	while (local_env && *local_env++)
 		++i;
 	return (i);
 }
@@ -37,11 +37,12 @@ char	**copy_enivornment_var(void)
 	environ_cp = (char **)ft_memalloc(sizeof(*environ_cp) * (n + 1));
 	if (!environ_cp)
 		exit (-1);
-	while (environ[i])
+	while (environ && environ[i])
 	{
 		environ_cp[i] = ft_strdup(environ[i]);
 		++i;
 	}
 	environ_cp[i] = NULL;
+	update_env("_", "", &environ_cp);
 	return (environ_cp);
 }
