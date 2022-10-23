@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 16:37:57 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 20:36:11 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int accessibility(char *path)
 }
 
 // TODO In linux cwd can be used dynamically, check mac
-static int cwd_wrap(char **cwd)
+int cwd_wrap(char **cwd)
 {
 	int max_size;
 

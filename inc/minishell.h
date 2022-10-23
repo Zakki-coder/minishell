@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/22 18:01:40 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 21:47:47 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char *ft_search_str(char **haystack, char *needle);
 size_t	calc_chptr(char **arr);
 void	print_char_arr(char **arr);
 void free_tokens(t_token **args);
+int cwd_wrap(char **cwd);
+char	**ft_cpynstrarr(char **sarr, int n);
 /* main stuff */
 void loop_eternal(char ***environ_cp);
 /*for tests */

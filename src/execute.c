@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/23 19:31:51 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/23 22:30:45 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,37 @@ char	*search_bin(char *cmd, char **environ_cp)
 	return (NULL);
 }
 
+static char **add_cwd_to_path(char **environ_cp)
+{
+	char	*path;
+	char	*new;
+	char	**bk;
+
+	bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
+	path = search_variable(environ_cp, "PATH");
+	if (!path)
+	{
+		update_env("PATH", ".", &bk);
+		return (bk);
+	}
+	new = ft_strjoin(path, ":.");
+	ft_memdel((void **)&path);
+	update_env("PATH", new, &bk);
+	ft_memdel((void **)&new);
+	return (bk);
+}
+
 int	execute_bin(char **args, char **environ_cp)
 {
 	char	*cmd;
 	int		id;
 	int		wstatus;
+	char	**environ_bk;
 
 	if (!*args)
 		return (0);
-	cmd = search_bin(args[0], environ_cp);
+	environ_bk = add_cwd_to_path(environ_cp);
+	cmd = search_bin(args[0], environ_bk);
 	if (cmd)
 	{
 		id = fork();
