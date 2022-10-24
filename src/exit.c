@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:57:44 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/21 17:00:50 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:05:53 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ms_exit(char **args, char **environ_cp)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	if (args[1])

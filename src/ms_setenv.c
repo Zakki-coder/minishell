@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:31:35 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/20 13:12:38 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:22:25 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	check_var_name(char *var)
 	return (1);
 }
 
-/* If variable is given without eq. I.e <VARNAME> <VALUE> dont check the value */
 static	int	validate_args(char **args)
 {
 	int		i;
@@ -62,15 +61,11 @@ static	int	validate_args(char **args)
 	return (ret);
 }
 
-int	ms_setenv(char **args, char ***environ_cp)
+static void	setter(char **args, char ***environ_cp, char *eq, char *name)
 {
-	int		i;
-	char	*eq;
-	char	*name;
+	int	i;
 
 	i = 1;
-	if (!validate_args(args))
-		return (0);
 	while (args[i])
 	{
 		eq = ft_strchr(args[i], '=');
@@ -92,5 +87,17 @@ int	ms_setenv(char **args, char ***environ_cp)
 		}
 		++i;
 	}
+}
+
+int	ms_setenv(char **args, char ***environ_cp)
+{
+	char	*eq;
+	char	*name;
+
+	if (!validate_args(args))
+		return (0);
+	eq = NULL;
+	name = NULL;
+	setter(args, environ_cp, eq, name);
 	return (1);
 }
