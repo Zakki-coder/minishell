@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/23 20:19:52 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 15:31:24 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	replace_var_with_value(char **var_name, char **environ_cp)
 	*var_name = var_value;
 }
 
-int	is_accepted_variable_char(char c)
+static int	is_accepted_variable_char(char c)
 {
 	return (c == '_' || ft_isalnum(c));
 }

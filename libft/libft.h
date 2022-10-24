@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:53:35 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/18 16:30:59 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 15:34:38 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+char	**ft_cpynstrarr(char **sarr, int n);
 int		ft_equstrlen(char *s1, char *s2);
 char	*ft_strndup(char *str, size_t n);
 void	**ft_realloc_darray(void ***d_array, size_t old_size, size_t new_size);

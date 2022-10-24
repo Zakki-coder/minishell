@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/23 21:47:47 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:00:29 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ char	*search_bin(char *cmd, char **environ_cp);
 char	*search_variable(char **environ_cp, char *var_name);
 /* Builtins */
 void	ms_echo(char **args);
-int	ms_cd(char **args, char ***environ_cp);
-int	ms_setenv(char **args, char ***environ_cp);
-int	ms_unsetenv(char **args, char ***environ_cp);
-int	ms_exit(char **args, char **environ_cp);
+int		ms_cd(char **args, char ***environ_cp);
+int		ms_setenv(char **args, char ***environ_cp);
+int		ms_unsetenv(char **args, char ***environ_cp);
+int		ms_exit(char **args, char **environ_cp);
+void	ms_env(char **args, char **environ_cp);
 /* Env */
-int	update_env(const char *name, const char *value, char ***environ_cp);
-int unset(char *name, char ***environ_cp);
+int		update_env(const char *name, const char *value, char ***environ_cp);
+int		unset(char *name, char ***environ_cp);
+void	env_set_var(char **args, char ***environ_cp, int *i, int flags);
+int		env_flags(char **args, char **environ_cp, int *i);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
