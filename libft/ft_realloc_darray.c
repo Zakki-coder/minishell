@@ -6,13 +6,14 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:40:52 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/21 14:30:17 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:08:27 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* Pointer_n is the number of already allocated pointers, new_size is the size to be allocated */
+/*	Pointer_n is the number of already allocated pointers,
+	new_size is the size to be allocated */
 void	**ft_realloc_darray(void ***d_array, size_t pointer_n, size_t new_size)
 {
 	void	**new;

@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 12:35:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:57:27 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	execute_bin(char **args, char **environ_cp)
 	}
 	else
 		ft_printf("minishell: %s: command not found...\n", args[0]);
+	ft_freeda((void ***)&environ_bk, calc_chptr(environ_bk));
 	ft_memdel((void **)&cmd);
 	return (0);
 }

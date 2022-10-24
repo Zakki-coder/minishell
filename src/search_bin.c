@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:31:36 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 12:33:01 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 17:51:41 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ static int	ft_freeda_w(void ***a, size_t row)
 	return (1);
 }
 
+static int	try_cmd(char *cmd, char **environ_cp, char **temp_path)
+{
+	if (!access(cmd, F_OK) && !access(cmd, X_OK))
+		return (1);
+	*temp_path = search_variable(environ_cp, "PATH");
+	return (0);
+}
+
 char	*search_bin(char *cmd, char **environ_cp)
 {
 	char	**bin_paths;
@@ -34,7 +42,8 @@ char	*search_bin(char *cmd, char **environ_cp)
 	int		i;
 
 	i = 0;
-	temp_path = search_variable(environ_cp, "PATH");
+	if (try_cmd(cmd, environ_cp, &temp_path))
+		return (ft_strdup(cmd));
 	bin_paths = NULL;
 	if (temp_path)
 		bin_paths = ft_strsplit(temp_path, ':');
