@@ -6,15 +6,16 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:42:33 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 16:28:12 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:54:03 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static void execute_flags(char **args, int delimit, int flags, char **environ_cp)
+static void	execute_flags(char **args, int delimit
+	, int flags, char **environ_cp)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (args[i] && i < delimit)
@@ -31,9 +32,9 @@ static void execute_flags(char **args, int delimit, int flags, char **environ_cp
 	}
 }
 
-static void execute_flags2(char **args, int delimit, int flags)
+static void	execute_flags2(char **args, int delimit, int flags)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (args[i] && i < delimit)
@@ -51,8 +52,8 @@ static void execute_flags2(char **args, int delimit, int flags)
 
 static char	**clean_environ(char **environ_cp)
 {
-	char **env;
-	char *temp;
+	char	**env;
+	char	*temp;
 
 	temp = search_variable(environ_cp, "PATH");
 	if (!temp)
@@ -73,15 +74,11 @@ static char	**clean_environ(char **environ_cp)
 */
 void	ms_env(char **args, char **environ_cp)
 {
-	size_t		len;
-	int			i;
-	unsigned	flags;
-	char		**environ_bk;
+	int				i;
+	unsigned int	flags;
+	char			**environ_bk;
 
-	len = calc_chptr(args);
-	if (len == 1)
-		print_char_arr(environ_cp);
-	else
+	if (args[1])
 	{
 		environ_bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
 		environ_cp = environ_bk;
@@ -98,8 +95,8 @@ void	ms_env(char **args, char **environ_cp)
 				environ_cp = clean_environ(environ_cp);
 				executor(&args[i], &environ_cp);
 			}
+			return ;
 		}
-		else
-			print_char_arr(environ_cp);
 	}
+	print_char_arr(environ_cp);
 }

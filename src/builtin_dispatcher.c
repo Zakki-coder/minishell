@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:39:50 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 15:40:37 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 16:56:25 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	char_to_builtin(char *arg)
 {
-	unsigned	len;
+	unsigned int	len;
 
 	len = ft_strlen(arg);
 	if (ft_strlen("echo") == len && ft_strequ("echo", arg))
@@ -32,11 +32,9 @@ static int	char_to_builtin(char *arg)
 	return (-1);
 }
 
-// There is nothing in p array index zero at the moment, because env takes two args
-// All of these should propably return int to somewhere
 void	exe_builtins(char **args, char ***environ_cp)
 {
-	int cmd;
+	int	cmd;
 
 	cmd = char_to_builtin(args[0]);
 	if (cmd == ENV)
