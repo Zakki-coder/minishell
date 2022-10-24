@@ -6,13 +6,13 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:31:35 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 12:22:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:23:54 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	check_var_name(char *var)
+static int	check_var_name(char *var)
 {
 	if (ft_isdigit(var[0]))
 	{

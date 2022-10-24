@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:11:48 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/23 22:08:33 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:27:27 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_builtin(char *cmd)
 		|| ft_equstrlen(cmd, "env"));
 }
 
-static int is_exit (char *cmd)
+static int	is_exit(char *cmd)
 {
 	return (ft_equstrlen(cmd, "exit"));
 }

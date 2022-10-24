@@ -6,13 +6,13 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/23 20:36:11 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:26:19 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int accessibility(char *path)
+static int	accessibility(char *path)
 {
 	struct stat	buf;
 
@@ -30,9 +30,9 @@ static int accessibility(char *path)
 }
 
 // TODO In linux cwd can be used dynamically, check mac
-int cwd_wrap(char **cwd)
+int	cwd_wrap(char **cwd)
 {
-	int max_size;
+	int	max_size;
 
 	max_size = 1024;
 	*cwd = (char *)ft_memalloc(max_size);
@@ -44,7 +44,7 @@ int cwd_wrap(char **cwd)
 	return (1);
 }
 
-static int chdir_wrap(char *path, char ***environ_cp)
+static int	chdir_wrap(char *path, char ***environ_cp)
 {
 	char	*cwd;
 
@@ -53,7 +53,6 @@ static int chdir_wrap(char *path, char ***environ_cp)
 	if (accessibility(path))
 		return (0);
 	cwd_wrap(&cwd);
-	//If path is home dont print cwd after change
 	if (chdir(path) == -1
 		&& ft_printf("minishell: cd: %s: is not a directory\n", path))
 		return (0);
@@ -67,14 +66,14 @@ static int chdir_wrap(char *path, char ***environ_cp)
 
 static int	prev(char **args, char ***environ_cp, char **cwd)
 {
-	char *path;
+	char	*path;
 
 	if (ft_equstrlen(args[1], "-"))
 	{
 		path = search_variable(*environ_cp, "OLDPWD");
 		if (!path && ft_printf("minishell: cd: OLDPWD not set\n"))
 			return (1);
-		if(chdir_wrap(path, environ_cp) && cwd_wrap(cwd))
+		if (chdir_wrap(path, environ_cp) && cwd_wrap(cwd))
 		{
 			ft_memdel((void **)&path);
 			ft_printf("%s\n", *cwd);
