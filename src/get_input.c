@@ -6,7 +6,7 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 14:16:22 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/23 21:59:54 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:40:47 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	validate_quotes(char *line)
 		else
 			quote = w_quote;
 		quote = ft_strchr(quote + 1, *quote);
-		//TODO Free line from caller
 		if (!quote && ft_printf("minishell: unclosed quotes\n"))
 			return (0);
 		else
@@ -102,13 +101,12 @@ static char	**parse_input(char *line, char **environ_cp)
 }
 
 /* Remember that GNL gets rid of newline */
-int get_input(char ***environ_cp)
+int	get_input(char ***environ_cp)
 {
 	char	*line;
 	char	**parsed;
-	
+
 	line = NULL;
-	//Error handle -1?
 	get_next_line(STDIN_FILENO, &line);
 	parsed = parse_input(line, *environ_cp);
 	ft_memdel((void **)&line);
