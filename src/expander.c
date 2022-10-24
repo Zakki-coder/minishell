@@ -6,19 +6,11 @@
 /*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/22 18:02:20 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/24 12:00:33 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*	If $'VAR' try to expand $'VAR' return nothing because not found.
-	Output VAR
-	If 'VAR'$ There is no variable name given to $ so you just print $ char.
-	Ouput VAR$
-	If $"VAR" output $VAR
-	If "VAR"$ output VAR$
-*/
 
 static int	everything_before_usd(char *str, char **dst)
 {
@@ -83,9 +75,7 @@ static void	expand_arg(char **str, char **environ_cp)
 			replace_var_with_value(&splitted_str[i_pointer++], environ_cp);
 		}
 		else if ((*str)[0] == '~')
-		{
 			i += expand_tilde(&(*str)[i], &splitted_str[i_pointer], environ_cp);
-		}
 		else
 			i += everything_before_usd(&(*str)[i], &splitted_str[i_pointer++]);
 		if (i_pointer >= pointer_n - 2)
