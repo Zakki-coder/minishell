@@ -1,4 +1,0 @@
-printenv #For environment variables
-$environ and man environ
-man sigaction
-man trap
