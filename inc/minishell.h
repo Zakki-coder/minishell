@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/25 16:27:10 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:21:11 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "env.h"
 # include "builtins.h"
 # include <signal.h>
+
+#include <stdio.h> //DELT
 
 # define TOKEN_POINTER_N 1
 

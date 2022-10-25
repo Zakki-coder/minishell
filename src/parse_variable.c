@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   parse_variable.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:22:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/24 15:31:24 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/25 19:31:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,9 @@ void	replace_var_with_value(char **var_name, char **environ_cp)
 	char	*var;
 
 	i = 0;
-	var = ft_memalloc(ft_strlen(*var_name) + 2);
-	if (!var)
-		error_exit("Malloc fail\n");
-	ft_strcpy(var, *var_name);
-	ft_strcat(var, "=");
-	while (environ_cp[i]
-		&& !ft_strnequ(environ_cp[i], var, ft_strlen(var)))
-		++i;
-	if (environ_cp[i] && environ_cp[i][ft_strlen(*var_name)] == '=')
-		var_value = ft_strdup(ft_strchr(environ_cp[i], '=') + 1);
+	var = search_variable(environ_cp, *var_name);
+	if (var)
+		var_value = ft_strdup(var);
 	else
 		var_value = ft_strdup("");
 	free (*var_name);
