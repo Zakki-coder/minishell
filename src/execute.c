@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 17:57:27 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/25 12:18:43 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	execute_bin(char **args, char **environ_cp)
 	if (cmd)
 	{
 		id = fork();
-		if (id == 0)
-			execve(cmd, args, environ_cp);
+		if (id == 0 && execve(cmd, args, environ_cp) < 0)
+			exit (0);
 		else if (id < 0)
 			error_exit("minishell: Forking failed\n");
 		else
