@@ -10,3 +10,6 @@ TODO: unsetenv tilde
 
 GNL is leaking, probably it reads only to nl and returns
 unset path and home and see what happens
+
+
+echo "sadsad"~"dsada"
