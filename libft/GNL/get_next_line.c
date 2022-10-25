@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:21:44 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/20 18:16:14 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/25 15:44:56 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_hashNode	*ft_new_hash_node(int key, void *value)
 }
 
 ssize_t	reader(t_line *wrap, t_hashNode **node, size_t old_size, ssize_t *len)
-{	
+{
 	if (old_size == 0 || ((*node)->p == BUFF_SIZE))
 	{
 		*len = read((*node)->key, (*node)->v, BUFF_SIZE);

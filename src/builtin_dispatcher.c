@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_dispatcher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:39:50 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 16:56:25 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:34:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,9 @@ void	exe_builtins(char **args, char ***environ_cp)
 	else if (cmd == ECHO)
 		ms_echo(args);
 	else
+	{
 		ft_printf("minishell: %s: command not found...\n", args[0]);
+		return ;
+	}
+	update_env("_", args[0], environ_cp);
 }

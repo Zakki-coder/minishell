@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/25 14:44:20 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:27:10 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	executor(char **args, char ***environ_cp);
 int		expand_tilde(char *tilde, char **dest, char **environ_cp);
 t_token	*chop_line(char *line, t_token *args, size_t pointer_n);
 /*Execute*/
-int		execute_bin(char **args, char **environ_cp);
+int		execute_bin(char **args, char ***environ_cp);
 void	exe_builtins(char **parsed, char ***environ_cp);
 char	*search_bin(char *cmd, char **environ_cp);
 char	*search_variable(char **environ_cp, char *var_name);

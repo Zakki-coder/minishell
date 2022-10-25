@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:57:14 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/25 15:10:39 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:21:34 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ int	ft_strequ(char const *s1, char const *s2)
 		return (1);
 	return (0);
 }
-

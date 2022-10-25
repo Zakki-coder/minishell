@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:11:48 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 12:27:27 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:32:29 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	executor(char **args, char ***environ_cp)
 	if (is_builtin(args[0]))
 		exe_builtins(args, environ_cp);
 	else
-		execute_bin(args, *environ_cp);
+		execute_bin(args, environ_cp);
 }

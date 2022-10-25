@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/25 12:18:43 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:30:37 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	**add_cwd_to_path(char **environ_cp)
 	return (bk);
 }
 
-int	execute_bin(char **args, char **environ_cp)
+int	execute_bin(char **args, char ***environ_cp)
 {
 	char	*cmd;
 	int		id;
@@ -41,17 +41,20 @@ int	execute_bin(char **args, char **environ_cp)
 
 	if (!*args)
 		return (0);
-	environ_bk = add_cwd_to_path(environ_cp);
+	environ_bk = add_cwd_to_path(*environ_cp);
 	cmd = search_bin(args[0], environ_bk);
 	if (cmd)
 	{
 		id = fork();
-		if (id == 0 && execve(cmd, args, environ_cp) < 0)
+		if (id == 0 && execve(cmd, args, *environ_cp) < 0)
 			exit (0);
 		else if (id < 0)
 			error_exit("minishell: Forking failed\n");
 		else
+		{
 			wait(&wstatus);
+			update_env("_", cmd, environ_cp);
+		}
 	}
 	else
 		ft_printf("minishell: %s: command not found...\n", args[0]);
