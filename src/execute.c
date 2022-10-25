@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/25 16:30:37 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:38:23 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ int	execute_bin(char **args, char ***environ_cp)
 			exit (0);
 		else if (id < 0)
 			error_exit("minishell: Forking failed\n");
-		else
-		{
-			wait(&wstatus);
+		else if (wait(&wstatus))
 			update_env("_", cmd, environ_cp);
-		}
 	}
 	else
 		ft_printf("minishell: %s: command not found...\n", args[0]);
