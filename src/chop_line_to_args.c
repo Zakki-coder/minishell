@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   chop_line_to_args.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:33:27 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/13 15:32:54 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:41:49 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ char	*find_argument(char **line)
 
 	i = 0;
 	find_argument_until_seperator(line, &i);
-	if (i > 1 && ((*line)[i] == '\n' || (*line)[i] == ';'))
+	if (i > 1 && (*line)[i] == '\n')
 		--i;
-	else if ((*line)[i] == '\n' || (*line)[i] == ';')
+	else if ((*line)[i] == '\n')
 		i = 1;
 	ret = ft_strndup((*line), i);
 	if (!ret)
@@ -107,7 +107,7 @@ t_token	*chop_line(char *line, t_token *args, size_t pointer_n)
 		else
 		{
 			argument = find_argument(&line);
-			if (ft_strequ(argument, "\n") || ft_strequ(argument, ";"))
+			if (ft_strequ(argument, "\n"))
 				set_token_values(&args[i_args], ft_strdup("NEWLINE"), argument);
 			else
 				set_token_values(&args[i_args], ft_strdup("WORD"), argument);

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/25 12:06:53 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:44:20 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 # include "../libft/libft.h"
 # include "env.h"
 # include "builtins.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/wait.h>
 # include <signal.h>
 
 # define TOKEN_POINTER_N 1
