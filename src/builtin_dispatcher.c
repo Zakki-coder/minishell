@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:39:50 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/25 20:02:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:34:01 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exe_builtins(char **args, char ***environ_cp)
 	else if (cmd == SETENV)
 		ms_setenv(args, environ_cp);
 	else if (cmd == EXIT)
-		ms_exit(args, *environ_cp);
+		ms_exit(args, environ_cp);
 	else if (cmd == UNSETENV)
 		ms_unsetenv(args, environ_cp);
 	else if (cmd == ECHO)

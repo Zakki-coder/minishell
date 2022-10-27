@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:57:44 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 12:05:53 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:42:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ms_exit(char **args, char **environ_cp)
+int	ms_exit(char **args, char ***environ_cp)
 {
 	int	status;
 
@@ -20,6 +20,6 @@ int	ms_exit(char **args, char **environ_cp)
 	if (args[1])
 		status = ft_atoi(args[1]);
 	ft_freeda((void ***)&args, calc_chptr(args));
-	ft_freeda((void ***)&environ_cp, calc_chptr(environ_cp));
+	ft_freeda((void ***)environ_cp, calc_chptr(*environ_cp));
 	exit (status);
 }

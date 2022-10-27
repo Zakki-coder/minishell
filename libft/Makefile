@@ -16,7 +16,7 @@ INC_DEP = libft.h ft_printf/includes/ft_printf.h GNL/get_next_line.h
 
 GNL = GNL
 PRINTF = ft_printf
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g
 CC = gcc
 
 SRC :=	$(wildcard *.c)

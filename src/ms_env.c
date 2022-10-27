@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:42:33 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 16:54:03 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/27 18:19:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,32 @@ static void	execute_flags2(char **args, int delimit, int flags)
 	}
 }
 
-static char	**clean_environ(char **environ_cp)
+static char	**clean_environ(char ***environ_bk)
 {
 	char	**env;
 	char	*temp;
 
-	temp = search_variable(environ_cp, "PATH");
+	temp = search_variable(*environ_bk, "PATH");
 	if (!temp)
 		return (NULL);
+	ft_freeda((void ***)environ_bk, calc_chptr(*environ_bk));
 	env = ft_memalloc(sizeof(*env) * 3);
 	if (!env)
 		error_exit("Malloc fail\n");
 	env[0] = ft_strjoin("PATH=", temp);
 	ft_memdel((void **)&temp);
 	return (env);
+}
+
+static void	choose_environ(char **args, char ***environ_bk, int flags, int i)
+{
+	if (!(flags & ENV_I))
+		executor(&args[i], environ_bk);
+	else
+	{
+		*environ_bk = clean_environ(environ_bk);
+		executor(&args[i], environ_bk);
+	}
 }
 
 /* At least on linux -i not working beacause of execve:
@@ -78,25 +90,20 @@ void	ms_env(char **args, char **environ_cp)
 	unsigned int	flags;
 	char			**environ_bk;
 
+	environ_bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
 	if (args[1])
 	{
-		environ_bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
-		environ_cp = environ_bk;
-		flags = env_flags(args, environ_cp, &i);
-		execute_flags(args, i, flags, environ_cp);
-		env_set_var(args, &environ_cp, &i, flags);
+		flags = env_flags(args, environ_bk, &i);
+		execute_flags(args, i, flags, environ_bk);
+		env_set_var(args, &environ_bk, &i, flags);
 		execute_flags2(args, i, flags);
 		if (args[i])
 		{
-			if (!(flags & ENV_I))
-				executor(&args[i], &environ_cp);
-			else
-			{
-				environ_cp = clean_environ(environ_cp);
-				executor(&args[i], &environ_cp);
-			}
+			choose_environ(args, &environ_bk, flags, i);
+			ft_freeda((void ***)&(environ_bk), calc_chptr(environ_bk));
 			return ;
 		}
 	}
-	print_char_arr(environ_cp);
+	print_char_arr(environ_bk);
+	ft_freeda((void ***)&(environ_bk), calc_chptr(environ_bk));
 }

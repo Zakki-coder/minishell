@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:11:48 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/25 16:32:29 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:32:54 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_exit(char *cmd)
 void	executor(char **args, char ***environ_cp)
 {
 	if (is_exit(args[0]))
-		ms_exit(args, *environ_cp);
+		ms_exit(args, environ_cp);
 	if (is_builtin(args[0]))
 		exe_builtins(args, environ_cp);
 	else

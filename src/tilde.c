@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:26:41 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 12:03:39 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/27 11:42:41 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	expand_tilde(char *tilde, char **dest, char **environ_cp)
 	{
 		temp = search_variable(environ_cp, "HOME");
 		if (!temp)
-			ft_printf("minishell: $HOME unset\n");
+			return (ft_strlen(tilde));
 		else
 		{
 			if (tilde[1] == '/')

@@ -1,7 +1,7 @@
 NAME = minishell
 DIR_SRCS = src
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INC := $(wildcard inc/*.h)
 SRC := $(wildcard src/*.c)
 OBJ = $(SRC:%.c=%.o)
@@ -16,7 +16,7 @@ $(NAME): $(DEP:%.c=%.o) $(SRC:%.c=%.o) $(INC)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) libft/libft.a
 
 %.o: %.c
-	$(CC) $(CFLAG) -c $(<) -o $(@)
+	$(CC) $(CFLAGS) -c $(<) -o $(@)
 
 clean:
 	rm -f $(OBJ)

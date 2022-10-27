@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/25 19:56:17 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:31:36 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ static char	**add_cwd_to_path(char **environ_cp)
 	return (bk);
 }
 
+static void	exe_fail(char ***env_bk, char **cmd, char **args, char ***env_cp)
+{
+	ft_freeda((void ***)env_bk, calc_chptr(*env_bk));
+	ft_memdel((void **)cmd);
+	ms_exit(args, env_cp);
+}
+
 int	execute_bin(char **args, char ***environ_cp)
 {
 	char	*cmd;
@@ -48,7 +55,7 @@ int	execute_bin(char **args, char ***environ_cp)
 		update_env("_", cmd, environ_cp);
 		id = fork();
 		if (id == 0 && execve(cmd, args, *environ_cp) < 0)
-			exit (0);
+			exe_fail(&environ_bk, &cmd, args, environ_cp);
 		else if (id < 0)
 			error_exit("minishell: Forking failed\n");
 		else
