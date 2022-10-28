@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc_darray.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 18:40:52 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/24 17:08:27 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/28 11:59:58 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	**ft_realloc_darray(void ***d_array, size_t pointer_n, size_t new_size)
 	void	**new;
 	int		i;
 
-	i = pointer_n;
 	i = 0;
 	if (!d_array || !(*d_array))
 		return (NULL);

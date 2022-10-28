@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 17:26:41 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/27 11:42:41 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:08:12 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static void	old_pwd(char *tilde, char **dest, char **environ_cp)
 
 	temp = NULL;
 	temp = search_variable(environ_cp, "OLDPWD");
-	if (!temp)
-		ft_printf("minishell: $OLDPWD unset\n");
-	else
+	if (temp)
 	{
 		if (tilde[1] == '/')
 			*dest = ft_strjoin(temp, &tilde[1]);
@@ -36,9 +34,7 @@ static void	pwd(char *tilde, char **dest, char **environ_cp)
 
 	temp = NULL;
 	temp = search_variable(environ_cp, "PWD");
-	if (!temp)
-		ft_printf("minishell: $OLDPWD unset\n");
-	else
+	if (temp)
 	{
 		if (tilde[1] == '/')
 			*dest = ft_strjoin(temp, &tilde[1]);

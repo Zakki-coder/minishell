@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/27 11:41:52 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/28 13:05:08 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,20 @@ static int	accessibility(char *path)
 {
 	struct stat	buf;
 
-	if (!stat(path, &buf) && access(path, X_OK))
-	{
-		ft_printf("minishell: cd: %s: permission denied\n", path);
-		return (1);
-	}
+	stat(path, &buf);
 	if (access(path, F_OK))
 	{
 		ft_printf("minishell: cd: %s: no such file or directory\n", path);
+		return (1);
+	}
+	if (!S_ISDIR(buf.st_mode))
+	{
+		ft_printf("minishell: cd: %s: is not a directory\n", path);
+		return (1);
+	}
+	if (!stat(path, &buf) && access(path, X_OK))
+	{
+		ft_printf("minishell: cd: %s: permission denied\n", path);
 		return (1);
 	}
 	return (0);
@@ -55,7 +61,10 @@ static int	chdir_wrap(char *path, char ***environ_cp)
 	cwd_wrap(&cwd);
 	if (chdir(path) == -1
 		&& ft_printf("minishell: cd: %s: is not a directory\n", path))
+	{
+		ft_memdel((void **)&cwd);
 		return (0);
+	}
 	update_env("OLDPWD", cwd, environ_cp);
 	ft_memdel((void **)&cwd);
 	cwd_wrap(&cwd);
@@ -71,7 +80,7 @@ static int	prev(char **args, char ***environ_cp, char **cwd)
 	if (ft_equstrlen(args[1], "-"))
 	{
 		path = search_variable(*environ_cp, "OLDPWD");
-		if (!path && ft_printf("minishell: cd: OLDPWD not set\n"))
+		if (!path)
 			return (1);
 		if (chdir_wrap(path, environ_cp) && cwd_wrap(cwd))
 		{

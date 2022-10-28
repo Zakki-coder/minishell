@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 10:36:56 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/24 12:00:33 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/28 12:01:44 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	construct_str(char **dst, char ***splitted_str)
 	while ((*splitted_str)[i])
 		ft_strcat(res, (*splitted_str)[i++]);
 	free(*dst);
-	ft_freeda((void ***)splitted_str, i);
+	ft_freeda((void ***)splitted_str, i + 1);
 	*dst = res;
 }
 
