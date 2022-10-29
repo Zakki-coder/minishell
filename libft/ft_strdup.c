@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:24:44 by jniemine          #+#    #+#             */
-/*   Updated: 2021/11/30 14:18:09 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/29 18:48:52 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	char	*target;
 	char	*l_str;
 
-	l_str = (char *) malloc(ft_strlen(s1) * sizeof(*s1) + 1);
+	l_str = (char *)ft_memalloc(ft_strlen(s1) * sizeof(*s1) + 1);
 	if (!l_str)
 		return (NULL);
 	target = l_str;
