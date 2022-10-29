@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:53:35 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/24 15:34:38 by jakken           ###   ########.fr       */
+/*   Updated: 2022/10/29 10:39:28 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void	ft_lstadd(t_list **alst, t_list *new);
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void	ft_freeda(void ***a, size_t row);
+int		ft_freeda(void ***a, size_t row);
 void	*ft_realloc(void *old_ptr, size_t old_size, size_t new_size);
 void	ft_lstdelany(t_list **head, t_list *del);
 #endif
