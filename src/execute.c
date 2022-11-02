@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/11/02 11:36:58 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:48:35 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exe_fail(char **cmd, char **args, char ***env_cp)
 	ms_exit(args, env_cp);
 }
 
-int	check_if_user_exe(char *cmd, char **dest)
+static int	check_if_user_exe(char *cmd, char **dest)
 {
 	*dest = NULL;
 	if (ft_strchr(cmd, '/'))
