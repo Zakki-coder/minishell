@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:15:00 by jniemine          #+#    #+#             */
-/*   Updated: 2022/11/02 12:11:00 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/09/30 20:12:30 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define HASH	16384
-# define MINUS	8192
-# define ZERO	4096
-# define PLUS	2048
+# define HASH	16384	
+# define MINUS	8192	
+# define ZERO	4096	
+# define PLUS	2048	
 # define SPACE	1024
 # define LDBL	512
 # define LLONG 	128
 # define LONG	32
 # define SIZET	16
 # define SHORT	8
-# define CHAR	2
+# define CHAR	2	
 # define MAX_INT 2147483647
 # define BLACK		"\e[30m"
 # define RED		"\e[31m"

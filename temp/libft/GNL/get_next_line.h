@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 00:30:29 by jniemine          #+#    #+#             */
-/*   Updated: 2022/11/02 12:07:09 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:24:36 by jakken           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define GET_NEXT_LINE_H
 
 # include "../libft.h"
-//# include <stdlib.h>
-//# include <unistd.h>
-//# include <sys/types.h>
-//# include <sys/stat.h>
-//# include <fcntl.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 # define BUFF_SIZE 1
 
 typedef struct s_hash_node

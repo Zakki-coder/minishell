@@ -1,7 +1,7 @@
 NAME = minishell
 DIR_SRCS = src
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INC := $(wildcard inc/*.h)
 SRC := $(wildcard src/*.c)
 OBJ = $(SRC:%.c=%.o)
