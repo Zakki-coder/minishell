@@ -6,12 +6,13 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 12:34:34 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/25 16:20:47 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:43:15 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+/* Retruns the value of the variable, i.e everything after =*/
 char	*search_variable(char **environ_cp, char *var_name)
 {
 	int		i;

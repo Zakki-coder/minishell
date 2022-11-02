@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:37:37 by jniemine          #+#    #+#             */
-/*   Updated: 2022/10/25 19:48:07 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/02 14:11:10 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ static int	calculate_pointers(void)
 	while (local_env && *local_env++)
 		++i;
 	return (i);
+}
+
+static void	increment_shell_level(char ***environ_bk)
+{
+	char	*var;
+	char	*incremented;
+	int		shlvl;
+
+	var = search_variable(*environ_bk, "SHLVL");
+	if (var)
+	{
+		shlvl = ft_atoi(var);
+		incremented = ft_itoa(shlvl + 1);
+		if (shlvl >= 1000)
+			update_env("SHLVL", "1", environ_bk);
+		else
+			update_env("SHLVL", incremented, environ_bk);
+		ft_memdel((void **)&incremented);
+	}
+	else
+		update_env("SHLVL", "1", environ_bk);
+	ft_memdel((void **)&var);
 }
 
 char	**copy_enivornment_var(void)
@@ -44,5 +66,6 @@ char	**copy_enivornment_var(void)
 	}
 	environ_cp[i] = NULL;
 	update_env("_", "", &environ_cp);
+	increment_shell_level(&environ_cp);
 	return (environ_cp);
 }
