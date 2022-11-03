@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakken <jakken@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 15:24:32 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/24 17:16:07 by jakken           ###   ########.fr       */
+/*   Updated: 2022/11/02 14:49:34 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,5 @@
 
 # define ENV_I 1
 # define ENV_U 2
-# define ENV_C 4
-# define ENV_V 8
 
 #endif

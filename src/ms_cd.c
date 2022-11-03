@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 13:31:31 by jakken            #+#    #+#             */
-/*   Updated: 2022/10/28 13:05:08 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:25:18 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	accessibility(char *path)
 }
 
 // TODO In linux cwd can be used dynamically, check mac
-int	cwd_wrap(char **cwd)
+static int	cwd_wrap(char **cwd)
 {
 	int	max_size;
 
@@ -98,9 +98,12 @@ int	ms_cd(char **args, char ***environ_cp)
 	char	*cwd;
 	char	*path;
 
-	if (!args[1] || (args[1] && ft_equstrlen(args[1], "--")))
+	if (!args[1] || ft_strequ(args[1], "")
+		|| (args[1] && ft_equstrlen(args[1], "--")))
 	{
 		path = search_variable(*environ_cp, "HOME");
+		if (!path && ft_printf("minishell: cd: HOME not set\n"))
+			return (0);
 		chdir_wrap(path, environ_cp);
 		ft_memdel((void **)&path);
 		return (0);

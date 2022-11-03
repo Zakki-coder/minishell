@@ -6,49 +6,11 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:42:33 by jakken            #+#    #+#             */
-/*   Updated: 2022/11/02 14:09:15 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:36:31 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-static void	execute_flags(char **args, int delimit
-	, int flags, char **environ_cp)
-{
-	int	i;
-
-	i = 1;
-	while (args[i] && i < delimit)
-	{
-		if (flags & ENV_I)
-			ft_printf("cleaning environ\n");
-		if (!(flags & ENV_I) && ft_equstrlen(args[i], "-u"))
-		{
-			unset(args[i + 1], &environ_cp);
-			if (flags & ENV_V)
-				ft_printf("unset:\t%s\n", args[i]);
-		}
-		++i;
-	}
-}
-
-static void	execute_flags2(char **args, int delimit, int flags)
-{
-	int	i;
-
-	i = 0;
-	while (args[i] && i < delimit)
-	{
-		if (ft_equstrlen(args[i], "-C"))
-		{
-			if (flags & ENV_V)
-				ft_printf("chdir:\t%s\n", args[i]);
-			if (chdir(args[i + 1]) < 0)
-				ft_printf("env: chdir failed\n");
-		}
-		++i;
-	}
-}
 
 static char	**clean_environ(char ***environ_bk)
 {
@@ -67,15 +29,25 @@ static char	**clean_environ(char ***environ_bk)
 	return (env);
 }
 
-static void	choose_environ(char **args, char ***environ_bk, int flags, int i)
+static void	execute_flags(char **args, int delimit
+	, int flags, char ***environ_bk)
 {
-	if (!(flags & ENV_I))
-		executor(&args[i], environ_bk);
-	else
+	int	i;
+
+	i = 1;
+	while (args[i] && i < delimit)
 	{
-		*environ_bk = clean_environ(environ_bk);
-		executor(&args[i], environ_bk);
+		if (!(flags & ENV_I) && ft_equstrlen(args[i], "-u"))
+			unset(args[i + 1], environ_bk);
+		++i;
 	}
+	if (flags & ENV_I)
+		*environ_bk = clean_environ(environ_bk);
+}
+
+static void	choose_environ(char **args, char ***environ_bk, int i)
+{
+	executor(&args[i], environ_bk);
 }
 
 /* At least on linux -i not working beacause of execve:
@@ -87,23 +59,27 @@ static void	choose_environ(char **args, char ***environ_bk, int flags, int i)
 void	ms_env(char **args, char **environ_cp)
 {
 	int				i;
-	unsigned int	flags;
+	int				flags;
 	char			**environ_bk;
 
+	flags = 0;
+	i = 0;
 	environ_bk = ft_cpynstrarr(environ_cp, calc_chptr(environ_cp));
 	if (args[1])
 	{
 		flags = env_flags(args, environ_bk, &i);
-		execute_flags(args, i, flags, environ_bk);
-		env_set_var(args, &environ_bk, &i, flags);
-		execute_flags2(args, i, flags);
-		if (args[i])
+		execute_flags(args, i, flags, &environ_bk);
+		env_set_var(args, &environ_bk, &i);
+		if (args[i] && flags >= 0)
 		{
-			choose_environ(args, &environ_bk, flags, i);
+			choose_environ(args, &environ_bk, i);
 			ft_freeda((void ***)&(environ_bk), calc_chptr(environ_bk));
 			return ;
 		}
 	}
-	print_char_arr(environ_bk);
+	if (args[i] && flags != -1)
+		print_char_arr(environ_bk);
+	else if (!args[i] && flags == 0)
+		ft_printf("env: %s: No such file or directory\n", args[i - 1]);
 	ft_freeda((void ***)&(environ_bk), calc_chptr(environ_bk));
 }

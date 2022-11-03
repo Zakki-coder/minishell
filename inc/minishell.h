@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:38:34 by jniemine          #+#    #+#             */
-/*   Updated: 2022/11/02 13:52:16 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:40:09 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,14 @@ void	ms_env(char **args, char **environ_cp);
 /* Env */
 int		update_env(const char *name, const char *value, char ***environ_cp);
 int		unset(char *name, char ***environ_cp);
-void	env_set_var(char **args, char ***environ_cp, int *i, int flags);
+void	env_set_var(char **args, char ***environ_cp, int *i);
 int		env_flags(char **args, char **environ_cp, int *i);
 /*Error*/
 void	error_exit(char *msg);
 /* Extra */
-char	*ft_search_str(char **haystack, char *needle);
 size_t	calc_chptr(char **arr);
 void	print_char_arr(char **arr);
 void	free_tokens(t_token **args);
-int		cwd_wrap(char **cwd);
-char	**ft_cpynstrarr(char **sarr, int n);
 /* main stuff */
 void	loop_eternal(char ***environ_cp);
 /* Is functions */

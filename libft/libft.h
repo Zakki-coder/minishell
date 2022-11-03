@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 09:53:35 by jniemine          #+#    #+#             */
-/*   Updated: 2022/11/02 12:00:05 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:36:35 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # include <string.h>
-# include "GNL/get_next_line.h"
+# include "gnl/get_next_line.h"
 # include "ft_printf/includes/ft_printf.h"
 
 typedef struct s_list

@@ -6,7 +6,7 @@
 /*   By: jniemine <jniemine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:45:18 by jakken            #+#    #+#             */
-/*   Updated: 2022/11/02 11:48:35 by jniemine         ###   ########.fr       */
+/*   Updated: 2022/11/02 20:14:56 by jniemine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ static int	check_if_user_exe(char *cmd, char **dest)
 	return (0);
 }
 
+static int	check_access(char *cmd, char **args)
+{
+	struct stat	buf;
+
+	if (!cmd || !ft_strchr(cmd, '/'))
+	{
+		ft_printf("minishell: %s: command not found...\n", args[0]);
+		return (0);
+	}
+	stat(cmd, &buf);
+	if (S_ISDIR(buf.st_mode))
+	{
+		ft_printf("minishell: %s: is a directory\n", cmd);
+		return (0);
+	}
+	return (1);
+}
+
 int	execute_bin(char **args, char ***environ_cp)
 {
 	char	*cmd;
@@ -40,9 +58,7 @@ int	execute_bin(char **args, char ***environ_cp)
 		return (0);
 	if (!check_if_user_exe(args[0], &cmd))
 		cmd = search_bin(args[0], *environ_cp);
-	if (!cmd || !ft_strchr(cmd, '/'))
-		ft_printf("minishell: %s: command not found...\n", args[0]);
-	else
+	if (check_access(cmd, args))
 	{
 		id = fork();
 		if (id == 0)
